@@ -27,6 +27,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", "\"${project.findProperty("BASE_URL") ?: ""}\"")
+            buildConfigField("String", "API_KEY", "\"${project.findProperty("API_KEY") ?: ""}\"")
+        }
+        debug {
+            buildConfigField("String", "BASE_URL", "\"${project.findProperty("BASE_URL") ?: ""}\"")
+            buildConfigField("String", "API_KEY", "\"${project.findProperty("API_KEY") ?: ""}\"")
         }
     }
     compileOptions {
@@ -47,6 +53,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -61,11 +70,12 @@ dependencies {
     implementation("androidx.compose.material3:material3")
 
     // retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation("androidx.compose.ui:ui-text-android:1.5.4")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
