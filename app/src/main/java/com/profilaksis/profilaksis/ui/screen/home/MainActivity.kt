@@ -1,4 +1,4 @@
-package com.profilaksis.profilaksis.ui
+package com.profilaksis.profilaksis.ui.screen.home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -31,8 +31,8 @@ import com.profilaksis.profilaksis.R
 fun CustomInput(
     placeholder: String,
     leftIcon: ImageVector,
-    rightIcon: ImageVector,
-    rightIconFalse: ImageVector,
+    rightIcon: ImageVector ?= null,
+    rightIconFalse: ImageVector ?= null,
     isRightIconEnabled: Boolean,
     onRightIconClick: () -> Unit = {},
     visibleIcon: Boolean,
@@ -51,10 +51,12 @@ fun CustomInput(
                 IconButton(
                     onClick = { onRightIconClick() },
                 ) {
-                    Icon(
-                        imageVector = if (visibleIcon) rightIcon else rightIconFalse,
-                        contentDescription = "Right Icon"
-                    )
+                    (if (visibleIcon) rightIcon else rightIconFalse)?.let {
+                        Icon(
+                            imageVector = it,
+                            contentDescription = "Right Icon"
+                        )
+                    }
                 }
             }
         },
