@@ -31,8 +31,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -93,7 +91,6 @@ private fun getRenderEffect(): RenderEffect {
         .createChainEffect(alphaMatrix, blurEffect)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfilaksisApp(
     modifier: Modifier = Modifier,
@@ -102,18 +99,13 @@ fun ProfilaksisApp(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    Scaffold(
-        bottomBar = {
-            if (currentRoute != Screen.Result.route) {
-                BottomNavigation(navController)
-            }
-        },
-        modifier = modifier
-    ) { innerPadding ->
+    Box(
+        modifier = modifier.fillMaxSize()
+    ) {
         NavHost(
             navController = navController,
             startDestination = Screen.Home.route,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(bottom = 10.dp)
         ) {
             composable(Screen.Home.route) {
                 HomeScreen()
@@ -130,6 +122,10 @@ fun ProfilaksisApp(
             composable(Screen.Diabetes.route) {
                 DiabetesScreen()
             }
+        }
+
+        if (currentRoute != Screen.Result.route) {
+            BottomNavigation(navController)
         }
     }
 }
@@ -226,8 +222,8 @@ fun CustomBottomNavigation(navController: NavHostController) {
     val navigationItem = listOf(
         NavigationItem(
             icon = Icons.Filled.Menu,
-            title = "Home",
-            contentDescription = "Home",
+            title = "History",
+            contentDescription = "History",
             screen = Screen.History
         ),
         NavigationItem(
@@ -241,7 +237,7 @@ fun CustomBottomNavigation(navController: NavHostController) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .height(80.dp)
+            .height(70.dp)
             .paint(
                 painter = painterResource(R.drawable.bottom_navigation),
                 contentScale = ContentScale.FillWidth
@@ -261,7 +257,8 @@ fun CustomBottomNavigation(navController: NavHostController) {
                 Icon(
                     imageVector = item.icon,
                     contentDescription = item.title,
-                    tint = Color.White
+                    tint = Color.White,
+                    modifier = Modifier.size(30.dp)
                 )
             }
         }
