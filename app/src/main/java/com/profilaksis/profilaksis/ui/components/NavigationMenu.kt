@@ -28,6 +28,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -181,8 +182,6 @@ fun ItemNavigation(
     toggleAnimation: () -> Unit = { }
 ) {
     Box(
-        Modifier
-            .fillMaxSize(),
         contentAlignment = Alignment.BottomCenter
     ) {
         CustomBottomNavigation(navController)
@@ -193,6 +192,7 @@ fun ItemNavigation(
 
         FabGroup(renderEffect = renderEffect, animationProgress = fabAnimationProgress)
         FabGroup(
+            navController = navController,
             renderEffect = null,
             animationProgress = fabAnimationProgress,
             toggleAnimation = toggleAnimation
@@ -271,9 +271,10 @@ fun CustomBottomNavigation(navController: NavHostController) {
 
 @Composable
 fun FabGroup(
+    navController: NavHostController? = null,
     animationProgress: Float = 0f,
     renderEffect: androidx.compose.ui.graphics.RenderEffect? = null,
-    toggleAnimation: () -> Unit = { }
+    toggleAnimation: () -> Unit = { },
 ) {
     Box(
         Modifier
@@ -311,16 +312,38 @@ fun FabGroup(
                 .scale(1f - LinearEasing.transform(0.5f, 0.85f, animationProgress)),
         )
 
-        AnimatedFab(
-            icon = Icons.Default.Add,
-            modifier = Modifier
-                .rotate(
-                    225 * FastOutSlowInEasing
-                        .transform(0.35f, 0.65f, animationProgress)
-                ),
-            onClick = toggleAnimation,
-            backgroundColor = Color.Gray.copy(alpha = 0.5f),
-        )
+        if (navController != null && navController.currentDestination?.route != Screen.Home.route) {
+            AnimatedFab(
+                icon = Icons.Default.Home,
+                modifier = Modifier
+                    .rotate(
+                        225 * FastOutSlowInEasing
+                            .transform(0.35f, 0.65f, animationProgress)
+                    ),
+                onClick = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
+                backgroundColor = Color.Gray.copy(alpha = 0.5f),
+            )
+        } else {
+            AnimatedFab(
+                icon = Icons.Default.Add,
+                modifier = Modifier
+                    .rotate(
+                        225 * FastOutSlowInEasing
+                            .transform(0.35f, 0.65f, animationProgress)
+                    ),
+                onClick = toggleAnimation,
+                backgroundColor = Color.Gray.copy(alpha = 0.5f),
+            )
+        }
+
     }
 }
 
