@@ -71,8 +71,8 @@ dependencies {
     implementation ("androidx.compose.material:material:1.5.4")
     // image loader
     implementation("io.coil-kt:coil-compose:2.5.0")
-
-
+    //  navigation
+    implementation ("androidx.navigation:navigation-compose:2.7.5")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -80,6 +80,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.compose.ui:ui-text-android:1.5.4")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

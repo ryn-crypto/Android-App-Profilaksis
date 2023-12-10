@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Profilaksis"
         tools:targetApi="31">
         <activity
-            android:name=".ui.screen.home.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Profilaksis">
             <intent-filter>

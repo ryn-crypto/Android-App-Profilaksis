@@ -28,8 +28,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,7 +49,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.profilaksis.profilaksis.R
+import com.profilaksis.profilaksis.ui.navigation.NavigationItem
+import com.profilaksis.profilaksis.ui.navigation.Screen
+import com.profilaksis.profilaksis.ui.screen.diabetes.DiabetesScreen
+import com.profilaksis.profilaksis.ui.screen.heart.HeartScreen
+import com.profilaksis.profilaksis.ui.screen.history.HistoryScreen
+import com.profilaksis.profilaksis.ui.screen.home.HomeScreen
+import com.profilaksis.profilaksis.ui.screen.profile.ProfileScreen
 import com.profilaksis.profilaksis.ui.theme.ProfilaksisTheme
 import com.profilaksis.profilaksis.utils.DEFAULT_PADDING
 import com.profilaksis.profilaksis.utils.times
@@ -77,9 +92,52 @@ private fun getRenderEffect(): RenderEffect {
         .createChainEffect(alphaMatrix, blurEffect)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
-    val isMenuExtended = remember { mutableStateOf(true) }
+fun ProfilaksisApp(
+    modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
+) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    Scaffold(
+        bottomBar = {
+            if (currentRoute != Screen.Result.route) {
+                BottomNavigation(navController)
+            }
+        },
+        modifier = modifier
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = Screen.Home.route,
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable(Screen.Home.route) {
+                HomeScreen()
+            }
+            composable(Screen.Profile.route) {
+                ProfileScreen()
+            }
+            composable(Screen.History.route) {
+                HistoryScreen()
+            }
+            composable(Screen.Heart.route) {
+                HeartScreen()
+            }
+            composable(Screen.Diabetes.route) {
+                DiabetesScreen()
+            }
+        }
+    }
+}
+
+@Composable
+fun BottomNavigation(
+    navController: NavHostController
+) {
+    val isMenuExtended = remember { mutableStateOf(false) }
 
     val fabAnimationProgress by animateFloatAsState(
         targetValue = if (isMenuExtended.value) 1f else 0f,
@@ -103,17 +161,20 @@ fun MainScreen() {
         null
     }
 
-    MainScreen(
+    ItemNavigation(
+        navController = navController,
         renderEffect = renderEffect,
         fabAnimationProgress = fabAnimationProgress,
         clickAnimationProgress = clickAnimationProgress
     ) {
         isMenuExtended.value = isMenuExtended.value.not()
     }
+
 }
 
 @Composable
-fun MainScreen(
+fun ItemNavigation(
+    navController: NavHostController,
     renderEffect: androidx.compose.ui.graphics.RenderEffect?,
     fabAnimationProgress: Float = 0f,
     clickAnimationProgress: Float = 0f,
@@ -124,7 +185,7 @@ fun MainScreen(
             .fillMaxSize(),
         contentAlignment = Alignment.BottomCenter
     ) {
-        CustomBottomNavigation()
+        CustomBottomNavigation(navController)
         Circle(
             color = MaterialTheme.colors.primary.copy(alpha = 0.5f),
             animationProgress = 0.5f
@@ -161,7 +222,21 @@ fun Circle(color: Color, animationProgress: Float) {
 }
 
 @Composable
-fun CustomBottomNavigation() {
+fun CustomBottomNavigation(navController: NavHostController) {
+    val navigationItem = listOf(
+        NavigationItem(
+            icon = Icons.Filled.Menu,
+            title = "Home",
+            contentDescription = "Home",
+            screen = Screen.History
+        ),
+        NavigationItem(
+            icon = Icons.Filled.AccountCircle,
+            title = "Profile",
+            contentDescription = "Profile",
+            screen = Screen.Profile
+        )
+    )
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -169,17 +244,30 @@ fun CustomBottomNavigation() {
             .height(80.dp)
             .paint(
                 painter = painterResource(R.drawable.bottom_navigation),
-                contentScale = ContentScale.FillHeight
+                contentScale = ContentScale.FillWidth
             )
             .padding(horizontal = 40.dp)
     ) {
-        listOf(Icons.Filled.DateRange, Icons.Filled.AccountCircle).map { image ->
-            IconButton(onClick = { }) {
-                Icon(imageVector = image, contentDescription = null, tint = Color.White)
+        navigationItem.forEach { item ->
+            IconButton(onClick = {
+                navController.navigate(item.screen.route) {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            }) {
+                Icon(
+                    imageVector = item.icon,
+                    contentDescription = item.title,
+                    tint = Color.White
+                )
             }
         }
     }
 }
+
 
 @Composable
 fun FabGroup(
@@ -231,7 +319,7 @@ fun FabGroup(
                         .transform(0.35f, 0.65f, animationProgress)
                 ),
             onClick = toggleAnimation,
-            backgroundColor = Color.Transparent
+            backgroundColor = Color.Gray.copy(alpha = 0.5f),
         )
     }
 }
@@ -265,6 +353,6 @@ fun AnimatedFab(
 @Preview(device = "id:pixel_4a", showBackground = true, backgroundColor = 0xFF3A2F6E)
 private fun MainScreenPreview() {
     ProfilaksisTheme {
-        MainScreen()
+        ProfilaksisApp()
     }
 }
