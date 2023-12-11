@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.ui.unit.LayoutDirection
 
-const val DEFAULT_PADDING = 48
+const val DEFAULT_PADDING = 40
 
 fun Easing.transform(from: Float, to: Float, value: Float): Float {
     return transform(((value - from) * (1f / (to - from))).coerceIn(0f, 1f))

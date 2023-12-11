@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Person
@@ -30,12 +31,12 @@ fun SettingsCard(
     ElevatedCard(onClick = onClick, modifier = modifier) {
         Row(
             modifier = Modifier
-                .height(IntrinsicSize.Max)
+                .wrapContentHeight()
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                modifier = Modifier
+                modifier = modifier
                     .weight(1f),
                 imageVector = icon,
                 tint = MaterialTheme.colorScheme.onSurface,

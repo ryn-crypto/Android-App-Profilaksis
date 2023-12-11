@@ -4,10 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -15,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -33,6 +36,18 @@ fun Greeting(
     modifier: Modifier
 ) {
 
+    val padding = if (icon) {
+        16.dp
+    } else {
+        0.dp
+    }
+
+    val color = if (icon) {
+        0xFFFFFFFF
+    } else {
+        0xFF000000
+    }
+
     Row(
         modifier = modifier.height(100.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -44,18 +59,22 @@ fun Greeting(
                 .size(50.dp),
         )
         Column(
-            modifier = modifier.weight(2f),
+            modifier = modifier.weight(2f).padding(start = padding),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start
         ) {
-            Text(text = greeting)
-            Text(text = name)
+            Text(text = greeting, color = Color(color))
+            Text(text = name, color = Color(color))
         }
         if (icon) {
             Icon(
-                imageVector = Icons.Filled.Settings,
+                modifier = modifier
+                    .weight(1f)
+                    .wrapContentSize()
+                    .padding(end = 10.dp),
+                tint = Color(color),
+                imageVector = Icons.Filled.Menu,
                 contentDescription = stringResource(R.string.user_image),
-                modifier = modifier.weight(1f),
             )
         }
     }

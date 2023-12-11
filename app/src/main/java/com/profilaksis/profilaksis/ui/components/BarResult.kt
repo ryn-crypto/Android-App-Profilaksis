@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,14 +20,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BarResult(title: String, percent: Float, onClick: () -> Unit) {
+fun BarResult(title: String, type: String, percent: Float, onClick: () -> Unit) {
     val health = when {
         percent > 90 -> "Danger"
         percent > 60 -> "UnHealthy"
@@ -69,7 +73,7 @@ fun BarResult(title: String, percent: Float, onClick: () -> Unit) {
         ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(bottom = 10.dp)
             )
             val screenWidth = LocalConfiguration.current.screenWidthDp.dp
@@ -92,9 +96,24 @@ fun BarResult(title: String, percent: Float, onClick: () -> Unit) {
                 )
             }
             Spacer(modifier = Modifier.height(15.dp))
-            Text(text = "${percent.toInt()}%", style = MaterialTheme.typography.bodyMedium)
-            Text(text = health, style = MaterialTheme.typography.bodyLarge)
+            Text(text = type, style = MaterialTheme.typography.bodyLarge)
             Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = health,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    shadow = Shadow(
+                        color = Color.Black,
+                        offset = Offset(1f, 1f),
+                        blurRadius = 1.5f
+                    )
+                ),
+                fontStyle = FontStyle.Italic,
+                color = when {
+                    percent > 90 -> Color.Red
+                    percent > 60 -> Color.Yellow
+                    else -> Color.Green
+                }
+            )
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -104,9 +123,13 @@ fun BarResult(title: String, percent: Float, onClick: () -> Unit) {
                 Button(
                     modifier = Modifier
                         .wrapContentSize(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    ),
                     onClick = { onClick }) {
                     Text(
-                        text = "test again",
+                        text = "Test again",
                         style = MaterialTheme.typography.bodySmall,
                     )
                 }
@@ -121,6 +144,7 @@ fun BarResultPreview() {
     BarResult(
         title = "Health Update",
         percent = 100f,
+        type = "Hearth",
         onClick = {}
     )
 }

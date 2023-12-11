@@ -26,6 +26,10 @@ object SettingsData {
         SettingsItem(
             title = "Privacy Policy",
             icon = Icons.Filled.Info
-        )
+        ),
+        SettingsItem(
+            title = "About",
+            icon = Icons.Filled.Info
+        ),
     )
 }
