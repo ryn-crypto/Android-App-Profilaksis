@@ -1,4 +1,4 @@
-package com.profilaksis.profilaksis.ui.components
+package com.profilaksis.profilaksis.container
 
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter

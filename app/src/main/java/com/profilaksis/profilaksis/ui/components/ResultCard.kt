@@ -15,7 +15,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ResultCard(percentage: Float,date: String, userName: String, description: String) {
+fun ResultCard(
+    percentage: Float,
+    date: String,
+    userName: String?,
+    description: String?
+) {
     ElevatedCard(
         modifier = Modifier
             .width(300.dp)
@@ -28,26 +33,32 @@ fun ResultCard(percentage: Float,date: String, userName: String, description: St
             text = date,
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier
-                .padding(20.dp),
+                .padding(start = 16.dp, top = 16.dp, bottom = 10.dp),
         )
         PercentageCircle(
             percentage,
+            true,
+            24,
+            150,
             Modifier
                 .align(Alignment.CenterHorizontally)
                 .size(200.dp)
         )
-        Text(
-            text = userName,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally),
-            style = MaterialTheme.typography.labelSmall,
-        )
-        Text(
-            text = description,
-            modifier = Modifier
-                .padding(16.dp),
-            style = MaterialTheme.typography.bodySmall,
-        )
+        if (userName != null && description != null) {
+            Text(
+                text = userName,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
+                style = MaterialTheme.typography.labelSmall,
+            )
+            Text(
+                text = description,
+                modifier = Modifier
+                    .padding(16.dp),
+
+                style = MaterialTheme.typography.bodySmall,
+            )
+        }
     }
 }
 
@@ -64,6 +75,13 @@ fun CardsPreview() {
             "12 December 2021",
             "Nama Pasien",
             "lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet"
+        )
+
+        ResultCard(
+            97f,
+            "12 December 2021",
+            null,
+            null
         )
     }
 }

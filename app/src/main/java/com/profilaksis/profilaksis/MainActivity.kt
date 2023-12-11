@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.profilaksis.profilaksis.ui.components.ProfilaksisApp
+import com.profilaksis.profilaksis.container.ProfilaksisApp
 import com.profilaksis.profilaksis.ui.theme.ProfilaksisTheme
 
 class MainActivity : ComponentActivity() {

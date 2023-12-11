@@ -2,7 +2,8 @@
     <string name="app_name">Profilaksis</string>
     <string name="pref_key_dark" translatable="false">key_dark_mode</string>
     <string name="pref_dark_auto" translatable="false">auto</string>
-    <string name="description_image">image article</string>
+    <string name="article_image">image article</string>
+    <string name="user_image">image user</string>
     <string name="menu_home">Home</string>
     <string name="history">History</string>
     <string name="menu_profile">Profile</string>

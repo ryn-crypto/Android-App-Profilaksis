@@ -73,7 +73,7 @@ fun Image(url: String, modifier: Modifier) {
             .crossfade(true)
             .build(),
 //            placeholder = painterResource(R.drawable.placeholder), // skeleton
-        contentDescription = stringResource(R.string.description_image),
+        contentDescription = stringResource(R.string.article_image),
         contentScale = ContentScale.Crop,
     )
 }
