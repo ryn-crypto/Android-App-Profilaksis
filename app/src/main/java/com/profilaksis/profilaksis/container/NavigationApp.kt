@@ -32,7 +32,6 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -256,12 +255,21 @@ fun CustomBottomNavigation(navController: NavHostController) {
                     restoreState = true
                 }
             }) {
-                Icon(
-                    imageVector = item.icon,
-                    contentDescription = item.title,
-                    tint = Color.White,
-                    modifier = Modifier.size(30.dp)
-                )
+                if (navController.currentDestination?.route == item.screen.route) {
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = item.title,
+                        tint = Color.White,
+                        modifier = Modifier.size(30.dp)
+                    )
+                } else {
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = item.title,
+                        tint = Color.Gray.copy(alpha = 0.5f),
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
             }
         }
     }

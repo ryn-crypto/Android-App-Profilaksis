@@ -96,7 +96,14 @@ fun BarResult(title: String, type: String, percent: Float, onClick: () -> Unit) 
                 )
             }
             Spacer(modifier = Modifier.height(15.dp))
-            Text(text = type, style = MaterialTheme.typography.bodyLarge)
+            Row {
+                Text(text = type, style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    text = "${percent.toInt()}% risks",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 10.dp)
+                )
+            }
             Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = health,
