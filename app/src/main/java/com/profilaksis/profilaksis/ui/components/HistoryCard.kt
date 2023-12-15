@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material3.Card
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -22,7 +21,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HistoryCard(percentage: Float, date: String) {
+fun HistoryCard(percentage: Float, date: String, describe: String) {
     ElevatedCard(
         onClick = { /*TODO*/ },
         modifier = Modifier
@@ -52,7 +51,7 @@ fun HistoryCard(percentage: Float, date: String) {
                         .weight(2f)
                 )
                 Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    text = describe,
                     maxLines = 4,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
@@ -76,5 +75,5 @@ fun HistoryCard(percentage: Float, date: String) {
 @Preview(showBackground = true)
 @Composable
 fun HistoryCardPreview() {
-    HistoryCard(percentage = 70f, date = "12 December 2021")
+    HistoryCard(percentage = 70f, date = "12 December 2021", describe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae ni")
 }

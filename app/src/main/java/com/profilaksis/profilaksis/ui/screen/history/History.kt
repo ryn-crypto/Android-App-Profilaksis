@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.profilaksis.profilaksis.ui.components.HistoryCard
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,10 +41,10 @@ fun HistoryContent() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(16.dp),
+            .padding(top = 70.dp, start = 16.dp, end = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "History")
+        HistoryCard(percentage = 30f, date = "12 December 2021", describe = "You are healthy")
     }
 }
 

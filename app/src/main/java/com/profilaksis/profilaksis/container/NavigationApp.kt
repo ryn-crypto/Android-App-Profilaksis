@@ -94,6 +94,7 @@ private fun getRenderEffect(): RenderEffect {
 
 @Composable
 fun ProfilaksisApp(
+    clickFab: (String) -> Unit = { },
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -117,22 +118,17 @@ fun ProfilaksisApp(
             composable(Screen.History.route) {
                 HistoryScreen()
             }
-            composable(Screen.Heart.route) {
-                HeartScreen()
-            }
-            composable(Screen.Diabetes.route) {
-                DiabetesScreen()
-            }
         }
 
         if (currentRoute != Screen.Result.route) {
-            BottomNavigation(navController)
+            BottomNavigation(clickFab, navController)
         }
     }
 }
 
 @Composable
 fun BottomNavigation(
+    clickFab: (String) -> Unit = { },
     navController: NavHostController
 ) {
     val isMenuExtended = remember { mutableStateOf(false) }
@@ -160,6 +156,7 @@ fun BottomNavigation(
     }
 
     ItemNavigation(
+        clickFab = clickFab,
         navController = navController,
         renderEffect = renderEffect,
         fabAnimationProgress = fabAnimationProgress,
@@ -172,6 +169,7 @@ fun BottomNavigation(
 
 @Composable
 fun ItemNavigation(
+    clickFab: (String) -> Unit = { },
     navController: NavHostController,
     renderEffect: androidx.compose.ui.graphics.RenderEffect?,
     fabAnimationProgress: Float = 0f,
@@ -189,6 +187,7 @@ fun ItemNavigation(
 
         FabGroup(renderEffect = renderEffect, animationProgress = fabAnimationProgress)
         FabGroup(
+            clickFab = clickFab,
             navController = navController,
             renderEffect = null,
             animationProgress = fabAnimationProgress,
@@ -266,7 +265,7 @@ fun CustomBottomNavigation(navController: NavHostController) {
                     Icon(
                         imageVector = item.icon,
                         contentDescription = item.title,
-                        tint = Color.Gray.copy(alpha = 0.5f),
+                        tint = Color.White.copy(alpha = 0.5f),
                         modifier = Modifier.size(30.dp)
                     )
                 }
@@ -278,6 +277,7 @@ fun CustomBottomNavigation(navController: NavHostController) {
 
 @Composable
 fun FabGroup(
+    clickFab: (String) -> Unit = { },
     navController: NavHostController? = null,
     animationProgress: Float = 0f,
     renderEffect: androidx.compose.ui.graphics.RenderEffect? = null,
@@ -300,7 +300,10 @@ fun FabGroup(
                         end = 120.dp
                     ) * FastOutSlowInEasing.transform(0f, 0.8f, animationProgress)
                 ),
-            opacity = LinearEasing.transform(0.2f, 0.7f, animationProgress)
+            opacity = LinearEasing.transform(0.2f, 0.7f, animationProgress),
+            onClick = {
+                clickFab("heart")
+            }
         )
 
         AnimatedFab(
@@ -311,7 +314,10 @@ fun FabGroup(
                     start = 120.dp
                 ) * FastOutSlowInEasing.transform(0.2f, 1.0f, animationProgress)
             ),
-            opacity = LinearEasing.transform(0.4f, 0.9f, animationProgress)
+            opacity = LinearEasing.transform(0.4f, 0.9f, animationProgress),
+            onClick = {
+                clickFab("diabetes")
+            }
         )
 
         AnimatedFab(

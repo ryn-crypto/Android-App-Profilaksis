@@ -1,16 +1,18 @@
 package com.profilaksis.profilaksis.ui.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -21,7 +23,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.profilaksis.profilaksis.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArticleCard(
     url: String,
@@ -31,30 +32,55 @@ fun ArticleCard(
     onClick: () -> Unit = {}
 ) {
     ElevatedCard(
-        modifier = modifier.width(300.dp).padding(5.dp),
-        onClick = onClick
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(5.dp)
     ) {
-//        Image(url, modifier = modifier.padding(8.dp))
-        Column {
-            Text(title, Modifier.padding(8.dp))
-            Row {
+        Image(
+            url,
+            modifier = modifier
+                .fillMaxWidth()
+                .height(150.dp)
+                .padding(3.dp)
+        )
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(2.dp),
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = modifier.padding(start = 10.dp, bottom = 2.dp),
+            )
+            Row(
+                modifier = modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
                 Button(
-                    onClick = {},
-                    Modifier.padding(8.dp),
+                    onClick = onClick,
                 ) {
-                    Text(text = "Go to article")
-                }
-                Column {
                     Text(
-                        "Article By :",
+                        text = "Go to article",
                         style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.padding(8.dp),
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+                Column(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(end = 10.dp),
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Text(
+                        "Article By:",
+                        style = MaterialTheme.typography.bodySmall,
 
                         )
-                    Spacer(Modifier.weight(1f))
                     Text(
                         author,
-                        Modifier.padding(8.dp),
+                        Modifier.padding(3.dp),
                         style = MaterialTheme.typography.bodySmall,
                     )
                 }
