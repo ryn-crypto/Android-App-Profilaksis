@@ -314,7 +314,7 @@ fun HeartScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth(Alignment.End)
-                        .padding(end = 20.dp),
+                        .padding(end = 10.dp),
                     horizontalArrangement = Arrangement.End
                 ) {
                     Button(
