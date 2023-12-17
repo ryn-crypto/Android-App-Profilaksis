@@ -25,6 +25,7 @@ fun ScreenContainer(id: String, clickBack: () -> Unit) {
     var isPremium by remember { mutableStateOf(true) }
     val snackbarHostState = remember { SnackbarHostState() }
     var parameter by remember { mutableStateOf(ResponseResult()) }
+    var screenBack by remember { mutableStateOf("") }
 
     if (!isPremium) {
         AddsScreen(onClickExit = {
@@ -41,6 +42,7 @@ fun ScreenContainer(id: String, clickBack: () -> Unit) {
                     clickSubmit = {
                         parameter = it
                         currentId = "result"
+                        screenBack = "heart"
                     })
             }
 
@@ -49,12 +51,18 @@ fun ScreenContainer(id: String, clickBack: () -> Unit) {
             }
 
             "result" -> {
-                Log.e("test123 load res", "param $parameter, id $currentId")
-                ResultScreen(parameter = parameter, onClick = {
-                    Log.e("test123 res", "param $parameter, id $currentId")
-                    currentId = "consultation"
-                    parameter = ResponseResult(null)
-                })
+                ResultScreen(
+                    parameter = parameter,
+                    onClick = {
+                        currentId = "consultation"
+                        parameter = ResponseResult(null)
+                    },
+                    backScreen = screenBack,
+                    back = {
+                        currentId = it
+                        parameter = ResponseResult(null)
+                    }
+                )
             }
 
             "consultation" -> {

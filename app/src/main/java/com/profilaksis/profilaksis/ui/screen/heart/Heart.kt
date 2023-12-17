@@ -2,7 +2,6 @@ package com.profilaksis.profilaksis.ui.screen.heart
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
-import androidx.benchmark.perfetto.UiState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,9 +19,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardDefaults.elevatedCardColors
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,7 +40,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -156,73 +155,161 @@ fun HeartScreen(
                     onValueChange = { ageStatus.value = it })
                 Spacer(modifier = Modifier.padding(5.dp))
                 BMITextField(bmi, "BMI", rightLabel = "mmHg", onValueChange = { bmi.value = it })
-                Spacer(modifier = Modifier.padding(10.dp))
-                Text(
-                    text = "Gender",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(gender, Modifier.padding(1.dp))
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Blood Pressure",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(blood, Modifier.padding(1.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Gender",
+                        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    )
+                    CustomRadioButton(gender, Modifier.padding(1.dp))
+                }
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Cholesterol History",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(cholesterol, Modifier.padding(1.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Blood Pressure",
+                        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    )
+                    CustomRadioButton(blood, Modifier.padding(1.dp))
+                }
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Stroke History",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(stroke, Modifier.padding(1.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Cholesterol History",
+                        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    )
+                    CustomRadioButton(cholesterol, Modifier.padding(1.dp))
+                }
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Diabetes History",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(diabetes, Modifier.padding(1.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Stroke History",
+                        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    )
+                    CustomRadioButton(stroke, Modifier.padding(1.dp))
+                }
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Smoking",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(smoking, Modifier.padding(1.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Diabetes History",
+                        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    )
+                    CustomRadioButton(diabetes, Modifier.padding(0.dp))
+                }
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Alcohol",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(alcohol, Modifier.padding(1.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Smoking",
+                        modifier = Modifier.padding(top = 10.dp, start = 10.dp)
+                    )
+                    CustomRadioButton(smoking, Modifier.padding(1.dp))
+                }
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Exercise Regularly",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(exercise, Modifier.padding(1.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Alcohol",
+                        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    )
+                    CustomRadioButton(alcohol, Modifier.padding(1.dp))
+                }
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Consume Fruit Regularly",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(fruit, Modifier.padding(1.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Exercise Regularly",
+                        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    )
+                    CustomRadioButton(exercise, Modifier.padding(1.dp))
+                }
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Consume Vegetable Regularly",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(vegetable, Modifier.padding(1.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Consume Fruit Regularly",
+                        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    )
+                    CustomRadioButton(fruit, Modifier.padding(1.dp))
+                }
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Difficult to Walk",
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                CustomRadioButton(walk, Modifier.padding(1.dp))
-                Spacer(modifier = Modifier.padding(20.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Consume Vegetable Regularly",
+                        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    )
+                    CustomRadioButton(vegetable, Modifier.padding(1.dp))
+                }
+                Spacer(modifier = Modifier.padding(5.dp))
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    colors = elevatedCardColors(MaterialTheme.colorScheme.background),
+                    elevation = CardDefaults.cardElevation(0.2.dp),
+                ) {
+                    Text(
+                        text = "Difficult to Walk",
+                        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    )
+                    CustomRadioButton(walk, Modifier.padding(1.dp))
+                }
+                Spacer(modifier = Modifier.padding(5.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

@@ -40,11 +40,12 @@ fun ResultScreen(
     viewModel: ResultViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository())
     ),
+    backScreen: String,
     parameter: ResponseResult,
     onClick: () -> Unit = {},
+    back: (String) -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    Log.e("ResultScreen", "ResultScreen: $uiState")
 
     Scaffold(
         topBar = {
@@ -75,7 +76,8 @@ fun ResultScreen(
                         date = formatDate(parameter.date!!),
                         userName = parameter.userName,
                         description = parameter.description,
-                        onclick = onClick
+                        onclick = onClick,
+                        back = { back(backScreen) }
                     )
                 }
                 Spacer(modifier = Modifier.padding(5.dp))
@@ -181,6 +183,7 @@ fun ResultPreview() {
             date = Date(),
             userName = "test",
             description = "test"
-        )
+        ),
+        backScreen = "heart"
     )
 }
