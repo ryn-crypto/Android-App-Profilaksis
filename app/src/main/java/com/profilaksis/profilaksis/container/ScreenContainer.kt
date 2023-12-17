@@ -37,7 +37,8 @@ fun ScreenContainer(id: String, clickBack: () -> Unit) {
 
         when (currentId) {
             "heart" -> {
-                HeartScreen(clickBack = clickBack,
+                HeartScreen(
+                    clickBack = clickBack,
                     snackbarHostState = snackbarHostState,
                     clickSubmit = {
                         parameter = it
@@ -47,7 +48,13 @@ fun ScreenContainer(id: String, clickBack: () -> Unit) {
             }
 
             "diabetes" -> {
-                DiabetesScreen(clickBack = clickBack)
+                DiabetesScreen(clickBack = clickBack,
+                    snackbarHostState = snackbarHostState,
+                    clickSubmit = {
+                        parameter = it
+                        currentId = "result"
+                        screenBack = "diabetes"
+                    })
             }
 
             "result" -> {

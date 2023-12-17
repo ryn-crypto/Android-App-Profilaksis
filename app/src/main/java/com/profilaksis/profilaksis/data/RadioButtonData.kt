@@ -9,6 +9,7 @@ import com.profilaksis.profilaksis.utils.Status
 class RadioButtonStatus {
     var genderStatus by mutableStateOf(Status.LowHighStatus.Low)
     var diabetesStatus by mutableStateOf(Status.TreeLevel.Low)
+    var heartStatus by mutableStateOf(Status.TreeLevel.Low)
     var strokeStatus by mutableStateOf(Status.LowHighStatus.Low)
     var bloodPressureStatus by mutableStateOf(Status.LowHighStatus.Low)
     var cholesterolStatus by mutableStateOf(Status.LowHighStatus.Low)
@@ -31,6 +32,18 @@ val diabetesData = listOf(
     },
     RadioButtonInfo(Status.TreeLevel.Height, "Yes", radioButtonStatus.diabetesStatus) { status ->
         radioButtonStatus.diabetesStatus = status
+    }
+)
+
+val heartData = listOf(
+    RadioButtonInfo(Status.TreeLevel.Low, "No", radioButtonStatus.heartStatus) { status ->
+        radioButtonStatus.heartStatus = status
+    },
+    RadioButtonInfo(Status.TreeLevel.Mid, "Pre-Heart Attack", radioButtonStatus.heartStatus) { status ->
+        radioButtonStatus.heartStatus = status
+    },
+    RadioButtonInfo(Status.TreeLevel.Height, "Yes", radioButtonStatus.heartStatus) { status ->
+        radioButtonStatus.heartStatus = status
     }
 )
 

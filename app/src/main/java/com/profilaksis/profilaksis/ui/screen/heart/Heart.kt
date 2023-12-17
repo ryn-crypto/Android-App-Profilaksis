@@ -262,7 +262,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Exercise Regularly",
+                        text = "Workout Regularly",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(exercise, Modifier.padding(1.dp))

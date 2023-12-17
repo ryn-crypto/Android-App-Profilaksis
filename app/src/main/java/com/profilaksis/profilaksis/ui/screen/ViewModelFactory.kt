@@ -3,6 +3,7 @@ package com.profilaksis.profilaksis.ui.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.profilaksis.profilaksis.data.Repository
+import com.profilaksis.profilaksis.ui.screen.diabetes.DiabetesViewModel
 import com.profilaksis.profilaksis.ui.screen.heart.HeartViewModel
 import com.profilaksis.profilaksis.ui.screen.history.HistoryViewModel
 import com.profilaksis.profilaksis.ui.screen.home.HomeViewModel
@@ -21,6 +22,8 @@ class ViewModelFactory(private val repository: Repository) :
             return HistoryViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(HeartViewModel::class.java)) {
             return HeartViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(DiabetesViewModel::class.java)) {
+            return DiabetesViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(ResultViewModel::class.java)) {
             return ResultViewModel(repository) as T
         }
