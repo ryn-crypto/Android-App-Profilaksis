@@ -56,10 +56,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.profilaksis.profilaksis.R
+import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.ui.navigation.NavigationItem
 import com.profilaksis.profilaksis.ui.navigation.Screen
-import com.profilaksis.profilaksis.ui.screen.diabetes.DiabetesScreen
-import com.profilaksis.profilaksis.ui.screen.heart.HeartScreen
 import com.profilaksis.profilaksis.ui.screen.history.HistoryScreen
 import com.profilaksis.profilaksis.ui.screen.home.HomeScreen
 import com.profilaksis.profilaksis.ui.screen.profile.ProfileScreen
@@ -94,9 +93,11 @@ private fun getRenderEffect(): RenderEffect {
 
 @Composable
 fun ProfilaksisApp(
-    clickFab: (String) -> Unit = { },
     modifier: Modifier = Modifier,
+    clickFab: (String) -> Unit = { },
     navController: NavHostController = rememberNavController(),
+    userData: UserLogin,
+    onClick: () -> Unit = { }
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -110,10 +111,12 @@ fun ProfilaksisApp(
             modifier = Modifier.padding(bottom = 10.dp)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(userData = userData)
             }
             composable(Screen.Profile.route) {
-                ProfileScreen()
+                ProfileScreen(
+                    onCLick = onClick
+                )
             }
             composable(Screen.History.route) {
                 HistoryScreen()
@@ -389,6 +392,16 @@ fun AnimatedFab(
 @Preview(device = "id:pixel_4a", showBackground = true, backgroundColor = 0xFF3A2F6E)
 private fun MainScreenPreview() {
     ProfilaksisTheme {
-        ProfilaksisApp()
+        ProfilaksisApp(
+            clickFab = { },
+            userData = UserLogin(
+                "test",
+                1,
+                "test",
+                "test",
+                "test",
+                "test",
+            )
+        )
     }
 }

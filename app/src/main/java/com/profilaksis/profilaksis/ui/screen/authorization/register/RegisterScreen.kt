@@ -1,4 +1,4 @@
-package com.profilaksis.profilaksis.ui.screen.authorization
+package com.profilaksis.profilaksis.ui.screen.authorization.register
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,11 +24,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.profilaksis.profilaksis.R
 import com.profilaksis.profilaksis.ui.components.CustomInput
+import com.profilaksis.profilaksis.ui.screen.authorization.login.isValidEmail
+import com.profilaksis.profilaksis.ui.screen.authorization.login.isValidPassword
 
 @Composable
-fun LoginPage() {
-    val email by remember { mutableStateOf("") }
-    val password by remember { mutableStateOf("") }
+fun RegisterPage(
+    onRegisterSuccess: () -> Unit,
+) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
     var visible by remember { mutableStateOf(false) }
 
     Column(
@@ -42,10 +47,12 @@ fun LoginPage() {
             leftIcon = Icons.Default.Email,
             isRightIconEnabled = false,
             visibleIcon = false,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            onValueChange = { email = it }
         )
         Spacer(modifier = Modifier.height(16.dp))
         CustomInput(
+            modifier = Modifier.fillMaxWidth(),
             placeholder = "Password",
             leftIcon = Icons.Default.Lock,
             rightIcon = ImageVector.vectorResource(R.drawable.visible),
@@ -53,32 +60,42 @@ fun LoginPage() {
             isRightIconEnabled = true,
             onRightIconClick = { visible = !visible },
             visibleIcon = visible,
-            modifier = Modifier.fillMaxWidth()
+            onValueChange = { password = it },
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        CustomInput(
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = "Confirm Password",
+            leftIcon = Icons.Default.Lock,
+            isRightIconEnabled = false,
+            visibleIcon = visible,
+            onValueChange = { confirmPassword = it }
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
             onClick = {
+                // Handle register button click
+                val isValidEmail = isValidEmail(email)
+                val isValidPassword = isValidPassword(password)
+                val isPasswordMatched = password == confirmPassword
 
+                if (isValidEmail && isValidPassword && isPasswordMatched) {
+                    // Do registration logic here
+                } else {
+                    // Handle validation errors
+                }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Login")
+            Text(text = "Register")
         }
     }
 }
 
-fun isValidEmail(email: String): Boolean {
-    val emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.+[a-z]+"
-    return email.matches(emailPattern.toRegex())
-}
-
-fun isValidPassword(password: String): Boolean {
-    return password.length >= 8
-}
-
-
 @Preview(showBackground = true)
 @Composable
-fun LoginPagePreview() {
-    LoginPage()
+fun RegisterPagePreview() {
+    RegisterPage(
+        onRegisterSuccess = {}
+    )
 }

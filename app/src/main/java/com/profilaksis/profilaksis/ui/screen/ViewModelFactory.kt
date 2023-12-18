@@ -3,6 +3,8 @@ package com.profilaksis.profilaksis.ui.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.profilaksis.profilaksis.data.Repository
+import com.profilaksis.profilaksis.ui.screen.authorization.AuthViewModel
+import com.profilaksis.profilaksis.ui.screen.authorization.login.LoginViewModel
 import com.profilaksis.profilaksis.ui.screen.diabetes.DiabetesViewModel
 import com.profilaksis.profilaksis.ui.screen.heart.HeartViewModel
 import com.profilaksis.profilaksis.ui.screen.history.HistoryViewModel
@@ -26,6 +28,8 @@ class ViewModelFactory(private val repository: Repository) :
             return DiabetesViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(ResultViewModel::class.java)) {
             return ResultViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+            return LoginViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

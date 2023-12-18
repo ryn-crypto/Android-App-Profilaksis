@@ -21,13 +21,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.ui.components.ArticleCard
 import com.profilaksis.profilaksis.ui.components.Greeting
 import com.profilaksis.profilaksis.ui.components.SearchBar
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    userData: UserLogin
 ) {
     var searchText by remember { mutableStateOf("") }
 
@@ -54,8 +56,8 @@ fun HomeScreen(
                         .padding(top = 50.dp)
                 ) {
                     Greeting(
-                        name = "ryan",
-                        url = "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        name = userData.username,
+                        url = userData.avatar,
                         greeting = "Good Night",
                         icon = true,
                         modifier = Modifier.height(50.dp)
@@ -123,5 +125,14 @@ fun HomeScreen(
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(
+        userData = UserLogin(
+            id = 1,
+            username = "Riyan",
+            email = "",
+            role = "",
+            avatar = "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            token = " "
+        )
+    )
 }

@@ -12,14 +12,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.profilaksis.profilaksis.data.model.ResponseResult
+import com.profilaksis.profilaksis.data.model.UserData
+import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.ui.screen.adds.AddsScreen
+import com.profilaksis.profilaksis.ui.screen.authorization.login.LoginScreen
+import com.profilaksis.profilaksis.ui.screen.authorization.register.RegisterPage
 import com.profilaksis.profilaksis.ui.screen.consultation.Consultation
 import com.profilaksis.profilaksis.ui.screen.diabetes.DiabetesScreen
 import com.profilaksis.profilaksis.ui.screen.heart.HeartScreen
 import com.profilaksis.profilaksis.ui.screen.result.ResultScreen
 
 @Composable
-fun ScreenContainer(id: String, clickBack: () -> Unit) {
+fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> Unit) {
 
     var currentId by remember { mutableStateOf(id) }
     var isPremium by remember { mutableStateOf(true) }
@@ -34,8 +38,33 @@ fun ScreenContainer(id: String, clickBack: () -> Unit) {
     }
 
     if (isPremium) {
-
         when (currentId) {
+            "Login" -> {
+                LaunchedEffect(key1 = "Auth") {
+                    snackbarHostState.showSnackbar("Please login")
+                }
+                LoginScreen(
+                    loginSuccess = {
+                        userData(it)
+                    },
+                    snackbarHostState = snackbarHostState,
+                    onRegisterClick = {
+                        currentId = "Register"
+                    }
+                )
+            }
+
+            "Register" -> {
+                LaunchedEffect(key1 = "Auth") {
+                    snackbarHostState.showSnackbar("Please Register")
+                }
+                RegisterPage(
+                    onRegisterSuccess = {
+                        currentId = "Login"
+                    },
+                )
+            }
+
             "heart" -> {
                 HeartScreen(
                     clickBack = clickBack,
@@ -84,6 +113,7 @@ fun ScreenContainer(id: String, clickBack: () -> Unit) {
     }
 
     SnackbarHost(
-        hostState = snackbarHostState, modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        hostState = snackbarHostState,
     )
 }

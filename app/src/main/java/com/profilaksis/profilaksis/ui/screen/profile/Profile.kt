@@ -39,6 +39,7 @@ fun ProfileScreen(
     viewModel: ProfileViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository())
     ),
+    onCLick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val greeting = com.profilaksis.profilaksis.utils.Greeting.getGreeting()
@@ -61,7 +62,7 @@ fun ProfileScreen(
         content = {
             ProfileContent(
                 modifier = Modifier.fillMaxSize(),
-                onCLick = { /* TODO */ },
+                onCLick = onCLick,
                 greeting = greeting,
                 uiState = uiState
             )
@@ -126,9 +127,14 @@ fun ProfileContent(
             items(settings) { setting ->
                 SettingsCard(
                     modifier = Modifier.padding(vertical = 5.dp),
-                    onClick = { onCLick },
                     icon = setting.icon,
-                    title = setting.title
+                    title = setting.title,
+                    onClick =
+                        if (setting.tag == "logout") {
+                            onCLick
+                        } else {
+                            { Unit }
+                        }
                 )
             }
         }
@@ -138,5 +144,7 @@ fun ProfileContent(
 @Preview(showBackground = true, device = "id:pixel_5", backgroundColor = 0xFFFFFFFF)
 @Composable
 fun ProfileScreenPreview() {
-    ProfileScreen()
+    ProfileScreen(
+        onCLick = { /*TODO*/ }
+    )
 }

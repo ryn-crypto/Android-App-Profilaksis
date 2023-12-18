@@ -24,9 +24,12 @@ fun SettingsCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     icon: ImageVector,
-    title: String
+    title: String,
 ) {
-    ElevatedCard(onClick = onClick, modifier = modifier) {
+    ElevatedCard(
+        onClick = onClick,
+        modifier = modifier
+    ) {
         Row(
             modifier = Modifier
                 .wrapContentHeight()

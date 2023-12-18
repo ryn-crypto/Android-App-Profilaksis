@@ -29,6 +29,8 @@ import com.profilaksis.profilaksis.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomInput(
+    modifier: Modifier = Modifier,
+    onValueChange: (String) -> Unit,
     placeholder: String,
     leftIcon: ImageVector,
     rightIcon: ImageVector ?= null,
@@ -36,13 +38,16 @@ fun CustomInput(
     isRightIconEnabled: Boolean,
     onRightIconClick: () -> Unit = {},
     visibleIcon: Boolean,
-    modifier: Modifier = Modifier
 ) {
     var text by remember { mutableStateOf("") }
 
     OutlinedTextField(
         value = text,
-        onValueChange = { newText -> text = newText },
+        singleLine = true,
+        onValueChange = {
+            text = it
+            onValueChange(it)
+        },
         modifier = modifier,
         label = { Text(placeholder, color = Color.Gray) },
         leadingIcon = { Icon(imageVector = leftIcon, contentDescription = "Left Icon") },
@@ -66,7 +71,7 @@ fun CustomInput(
             imeAction = ImeAction.Done
         ),
         keyboardActions = KeyboardActions(
-            onDone = { /* Handle done action if needed */ }
+            onDone = {}
         )
     )
 }
@@ -84,6 +89,7 @@ fun CustomInputFieldWrapper() {
         isRightIconEnabled = true,
         onRightIconClick = { visible = !visible },
         visibleIcon = visible,
+        onValueChange = {},
         modifier = Modifier.fillMaxWidth()
     )
 }

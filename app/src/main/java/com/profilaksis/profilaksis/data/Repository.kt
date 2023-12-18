@@ -4,9 +4,21 @@ import com.profilaksis.profilaksis.data.model.HistoryData
 import com.profilaksis.profilaksis.data.model.ResponseArticleItem
 import com.profilaksis.profilaksis.data.model.ResponseResult
 import com.profilaksis.profilaksis.data.model.UserData
+import com.profilaksis.profilaksis.data.model.UserLogin
 import java.util.Date
 
 class Repository {
+
+    fun login(email: String, password: String): UserLogin {
+        return UserLogin(
+            id = 1,
+            username = "Riyan First",
+            email = "riyan@mail.com",
+            role = "user",
+            avatar = "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            token = "yriajfa",
+        )
+    }
 
     fun getLastHistory(): HistoryData {
         return HistoryData(
