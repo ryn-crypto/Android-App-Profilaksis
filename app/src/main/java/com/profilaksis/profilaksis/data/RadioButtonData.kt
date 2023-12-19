@@ -39,9 +39,6 @@ val heartData = listOf(
     RadioButtonInfo(Status.TreeLevel.Low, "No", radioButtonStatus.heartStatus) { status ->
         radioButtonStatus.heartStatus = status
     },
-    RadioButtonInfo(Status.TreeLevel.Mid, "Pre-Heart Attack", radioButtonStatus.heartStatus) { status ->
-        radioButtonStatus.heartStatus = status
-    },
     RadioButtonInfo(Status.TreeLevel.Height, "Yes", radioButtonStatus.heartStatus) { status ->
         radioButtonStatus.heartStatus = status
     }
@@ -69,7 +66,7 @@ val bloodPressureData = listOf(
     RadioButtonInfo(Status.LowHighStatus.Low, "Normal", radioButtonStatus.bloodPressureStatus) { status ->
         radioButtonStatus.bloodPressureStatus = status
     },
-    RadioButtonInfo(Status.LowHighStatus.Height, "High", radioButtonStatus.bloodPressureStatus) { status ->
+    RadioButtonInfo(Status.LowHighStatus.Height, "High (<150)", radioButtonStatus.bloodPressureStatus) { status ->
         radioButtonStatus.bloodPressureStatus = status
     }
 )
@@ -87,7 +84,7 @@ val smokingData = listOf(
     RadioButtonInfo(Status.LowHighStatus.Low, "No", radioButtonStatus.smokingStatus) { status ->
         radioButtonStatus.smokingStatus = status
     },
-    RadioButtonInfo(Status.LowHighStatus.Height, "Yes", radioButtonStatus.smokingStatus) { status ->
+    RadioButtonInfo(Status.LowHighStatus.Height, "Yes(<100 Cigarette)", radioButtonStatus.smokingStatus) { status ->
         radioButtonStatus.smokingStatus = status
     }
 )

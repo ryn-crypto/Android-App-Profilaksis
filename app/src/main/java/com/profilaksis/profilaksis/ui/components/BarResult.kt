@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun BarResult(title: String, type: String, percent: Float, onClick: () -> Unit) {
     val health = when {
-        percent > 90 -> "Danger"
+        percent > 90 -> "Are at Risk"
         percent > 60 -> "UnHealthy"
         else -> "Healthy"
     }

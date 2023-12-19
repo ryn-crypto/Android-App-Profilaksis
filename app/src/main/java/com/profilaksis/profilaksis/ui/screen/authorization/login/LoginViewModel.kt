@@ -3,8 +3,11 @@ package com.profilaksis.profilaksis.ui.screen.authorization.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profilaksis.profilaksis.data.Repository
+import com.profilaksis.profilaksis.data.model.LoginResponse
 import com.profilaksis.profilaksis.data.model.ResponseResult
 import com.profilaksis.profilaksis.data.model.UserLogin
+import com.profilaksis.profilaksis.data.remote.requestdata.LoginRequestBody
+import com.profilaksis.profilaksis.ui.screen.authorization.register.RegisterUiState
 import com.profilaksis.profilaksis.ui.screen.heart.HeartUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,10 +20,10 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
         LoginUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-    fun login(email: String, password: String) {
+    fun login(dataLogin: LoginRequestBody) {
         viewModelScope.launch {
             try {
-                val dataUser = repository.login(email, password)
+                val dataUser = repository.loginUser(dataLogin)
                 _uiState.value = LoginUiState.Success(dataUser)
             } catch (e: Exception) {
                 _uiState.value = LoginUiState.Error("Failed: ${e.message}")
@@ -31,11 +34,15 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
     fun resetUiState() {
         _uiState.value = LoginUiState.Initial
     }
+
+    fun loadingUiState() {
+        _uiState.value = LoginUiState.Loading
+    }
 }
 
 sealed class LoginUiState {
     object Loading : LoginUiState()
     object Initial : LoginUiState()
-    data class Success(val result: UserLogin) : LoginUiState()
+    data class Success(val result: LoginResponse) : LoginUiState()
     data class Error(val errorMessage: String) : LoginUiState()
 }

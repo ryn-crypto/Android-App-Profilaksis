@@ -97,7 +97,7 @@ fun ProfilaksisApp(
     clickFab: (String) -> Unit = { },
     navController: NavHostController = rememberNavController(),
     userData: UserLogin,
-    onClick: () -> Unit = { }
+    onClick: () -> Unit = { },
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -115,6 +115,7 @@ fun ProfilaksisApp(
             }
             composable(Screen.Profile.route) {
                 ProfileScreen(
+                    userData = userData,
                     onCLick = onClick
                 )
             }
@@ -132,7 +133,7 @@ fun ProfilaksisApp(
 @Composable
 fun BottomNavigation(
     clickFab: (String) -> Unit = { },
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     val isMenuExtended = remember { mutableStateOf(false) }
 
@@ -177,7 +178,7 @@ fun ItemNavigation(
     renderEffect: androidx.compose.ui.graphics.RenderEffect?,
     fabAnimationProgress: Float = 0f,
     clickAnimationProgress: Float = 0f,
-    toggleAnimation: () -> Unit = { }
+    toggleAnimation: () -> Unit = { },
 ) {
     Box(
         contentAlignment = Alignment.BottomCenter
@@ -369,7 +370,7 @@ fun AnimatedFab(
     icon: ImageVector? = null,
     opacity: Float = 1f,
     backgroundColor: Color = MaterialTheme.colors.secondary,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     FloatingActionButton(
         onClick = onClick,
@@ -395,8 +396,8 @@ private fun MainScreenPreview() {
         ProfilaksisApp(
             clickFab = { },
             userData = UserLogin(
-                "test",
                 1,
+                "test",
                 "test",
                 "test",
                 "test",

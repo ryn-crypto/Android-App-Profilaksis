@@ -35,6 +35,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -76,11 +77,12 @@ fun DiabetesScreen(
     val uiState by viewModel.uiState.collectAsState()
     var isLoading = false
 
-    val name = remember { mutableStateOf("") }
     val ageStatus = remember { mutableStateOf("") }
-    val bmi = remember { mutableStateOf("") }
+    val height = remember { mutableIntStateOf(0) }
+    val weight = remember { mutableIntStateOf(0) }
+    val bmi = weight.intValue * ((height.intValue / 100) * (height.intValue / 100))
     val genderStatus = radioButtonStatus.genderStatus
-    val heartStatus = radioButtonStatus.diabetesStatus
+    val heartStatus = radioButtonStatus.heartStatus
     val strokeStatus = radioButtonStatus.strokeStatus
     val bloodPressureStatus = radioButtonStatus.bloodPressureStatus
     val cholesterolStatus = radioButtonStatus.cholesterolStatus
@@ -142,18 +144,23 @@ fun DiabetesScreen(
                     textAlign = TextAlign.Center,
                 )
                 Spacer(modifier = Modifier.padding(10.dp))
-                NameTextField(name, "Name", onValueChange = {
-                    name.value = it
-                    isLoading = false
-                })
-                Spacer(modifier = Modifier.padding(5.dp))
                 AgeTextField(
                     ageStatus,
                     "Age",
                     rightLabel = "year",
                     onValueChange = { ageStatus.value = it })
                 Spacer(modifier = Modifier.padding(5.dp))
-                BMITextField(bmi, "BMI", rightLabel = "mmHg", onValueChange = { bmi.value = it })
+                IntTextField(
+                    height,
+                    "Height",
+                    rightLabel = "Cm",
+                    onValueChange = { height.intValue = it.toInt() })
+                Spacer(modifier = Modifier.padding(5.dp))
+                IntTextField(
+                    weight,
+                    "Weight",
+                    rightLabel = "Kg",
+                    onValueChange = { weight.intValue = it.toInt() })
                 Spacer(modifier = Modifier.padding(5.dp))
                 ElevatedCard(
                     modifier = Modifier
@@ -323,7 +330,7 @@ fun DiabetesScreen(
                         onClick = {
                             viewModel.sendData()
                         },
-                        enabled = name.value.isNotEmpty() && ageStatus.value.isNotEmpty() && bmi.value.isNotEmpty()
+                        enabled = ageStatus.value.isNotEmpty() && bmi != 0
                     ) {
                         Text(text = "Submit")
                     }
@@ -376,19 +383,6 @@ fun LoadingIndicator() {
 }
 
 @Composable
-fun NameTextField(
-    name: MutableState<String>,
-    label: String,
-    onValueChange: (String) -> Unit,
-) {
-    CustomTextField(
-        name = name.value,
-        label = label,
-        onValueChange = onValueChange
-    )
-}
-
-@Composable
 fun AgeTextField(
     age: MutableState<String>,
     label: String,
@@ -405,14 +399,14 @@ fun AgeTextField(
 }
 
 @Composable
-fun BMITextField(
-    bmi: MutableState<String>,
+fun IntTextField(
+    bmi: MutableState<Int>,
     label: String,
     rightLabel: String,
     onValueChange: (String) -> Unit,
 ) {
     CustomTextField(
-        name = bmi.value,
+        name = bmi.value.toString(),
         label = label,
         onValueChange = onValueChange,
         keyboardType = KeyboardType.Number,

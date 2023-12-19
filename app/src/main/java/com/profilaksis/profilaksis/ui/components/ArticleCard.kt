@@ -1,5 +1,6 @@
 package com.profilaksis.profilaksis.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,18 +30,18 @@ fun ArticleCard(
     title: String,
     author: String,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     ElevatedCard(
         modifier = modifier
             .fillMaxWidth()
-            .padding(5.dp)
+            .padding(10.dp)
     ) {
         Image(
             url,
             modifier = modifier
                 .fillMaxWidth()
-                .height(150.dp)
+                .height(130.dp)
                 .padding(3.dp)
         )
         Column(

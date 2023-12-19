@@ -1,7 +1,6 @@
 package com.profilaksis.profilaksis
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,7 +40,7 @@ class MainActivity : ComponentActivity() {
 fun AppContainer() {
     var isBlank by remember { mutableStateOf(false) }
     var parameter: String by remember { mutableStateOf("") }
-    var dataUser: UserLogin? by remember { mutableStateOf(UserLogin("", 1, "", "", "", "")) }
+    var dataUser: UserLogin? by remember { mutableStateOf(UserLogin(0, "", "", "", "", "")) }
 
     val authViewModel: AuthViewModel = viewModel()
     dataUser = authViewModel.getLoggedInfo()

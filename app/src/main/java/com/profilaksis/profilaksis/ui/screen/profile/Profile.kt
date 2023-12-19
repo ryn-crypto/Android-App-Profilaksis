@@ -25,6 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.profilaksis.profilaksis.data.local.SettingsData
+import com.profilaksis.profilaksis.data.model.UserData
+import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.di.Injection
 import com.profilaksis.profilaksis.ui.components.BarResult
 import com.profilaksis.profilaksis.ui.components.Greeting
@@ -39,6 +41,7 @@ fun ProfileScreen(
     viewModel: ProfileViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository())
     ),
+    userData: UserLogin,
     onCLick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -64,6 +67,7 @@ fun ProfileScreen(
                 modifier = Modifier.fillMaxSize(),
                 onCLick = onCLick,
                 greeting = greeting,
+                userData = userData,
                 uiState = uiState
             )
         }
@@ -75,6 +79,7 @@ fun ProfileContent(
     modifier: Modifier,
     onCLick: () -> Unit,
     greeting: String,
+    userData: UserLogin,
     uiState: ProfileUiState
 ) {
     val settings = SettingsData.settings
@@ -94,8 +99,8 @@ fun ProfileContent(
                 val profile = uiState.profile
                 if (profile != null) {
                     Greeting(
-                        name = profile.username,
-                        url = profile.avatar,
+                        name = userData.username,
+                        url = userData.avatar,
                         greeting = greeting,
                         icon = false,
                         modifier = Modifier.height(50.dp)
@@ -145,6 +150,7 @@ fun ProfileContent(
 @Composable
 fun ProfileScreenPreview() {
     ProfileScreen(
+        userData = UserLogin(1, "username", "email", "role", "avatar", "token") ,
         onCLick = { /*TODO*/ }
     )
 }

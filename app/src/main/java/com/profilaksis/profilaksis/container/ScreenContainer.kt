@@ -26,7 +26,7 @@ import com.profilaksis.profilaksis.ui.screen.result.ResultScreen
 fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> Unit) {
 
     var currentId by remember { mutableStateOf(id) }
-    var isPremium by remember { mutableStateOf(true) }
+    var isPremium by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
     var parameter by remember { mutableStateOf(ResponseResult()) }
     var screenBack by remember { mutableStateOf("") }
@@ -62,6 +62,10 @@ fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> 
                     onRegisterSuccess = {
                         currentId = "Login"
                     },
+                    snackbarHostState = snackbarHostState,
+                    onBackClick = {
+                        currentId = "Login"
+                    }
                 )
             }
 

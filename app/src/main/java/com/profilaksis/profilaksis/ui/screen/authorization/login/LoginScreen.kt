@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.profilaksis.profilaksis.R
 import com.profilaksis.profilaksis.data.model.UserLogin
+import com.profilaksis.profilaksis.data.remote.requestdata.LoginRequestBody
 import com.profilaksis.profilaksis.di.Injection
 import com.profilaksis.profilaksis.ui.components.CustomInput
 import com.profilaksis.profilaksis.ui.screen.ViewModelFactory
@@ -53,12 +55,12 @@ fun LoginScreen(
     loginSuccess: (UserLogin) -> Unit,
     onRegisterClick: () -> Unit,
 ) {
-    var email by remember { mutableStateOf("") }
+    var userName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var visible by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
 
-    Log.e("test123", "$email dan $password")
+    Log.e("test123", "$userName dan $password")
 
     val uiState by viewModel.uiState.collectAsState()
 
@@ -85,11 +87,11 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
         CustomInput(
             modifier = Modifier.fillMaxWidth(),
-            placeholder = "Email",
-            leftIcon = Icons.Default.Email,
+            placeholder = "User Name",
+            leftIcon = Icons.Default.AccountBox,
             isRightIconEnabled = false,
             visibleIcon = false,
-            onValueChange = { email = it }
+            onValueChange = { userName = it }
         )
         Spacer(modifier = Modifier.height(16.dp))
         CustomInput(
@@ -107,9 +109,13 @@ fun LoginScreen(
         Button(
             contentPadding = PaddingValues(4.dp),
             onClick = {
-                viewModel.login(email, password)
+                viewModel.login(
+                    LoginRequestBody(
+                        username = userName,
+                        password = password
+                    ))
             },
-            enabled = email.isNotEmpty() && password.isNotEmpty(),
+            enabled = userName.isNotEmpty() && password.isNotEmpty(),
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Login")
@@ -137,7 +143,7 @@ fun LoginScreen(
             }
 
             is LoginUiState.Success -> {
-                loginSuccess(currentState.result)
+                currentState.result.data?.let { loginSuccess(it) }
                 viewModel.resetUiState()
             }
 
@@ -164,16 +170,6 @@ fun LoginScreen(
         }
     }
 }
-
-fun isValidEmail(email: String): Boolean {
-    val emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.+[a-z]+"
-    return email.matches(emailPattern.toRegex())
-}
-
-fun isValidPassword(password: String): Boolean {
-    return password.length >= 8
-}
-
 
 @Preview(showBackground = true)
 @Composable

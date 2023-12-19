@@ -26,7 +26,7 @@ class AuthPreferences(private val preferences: SharedPreferences) {
         val role = preferences.getString("role", null)
 
         return if (token != null && username != null && id != 0 && avatar != null && email != null && role != null) {
-            UserLogin(role, id, avatar, email, username, token)
+            UserLogin(id, username, email, role, avatar, token)
         } else {
             null
         }
