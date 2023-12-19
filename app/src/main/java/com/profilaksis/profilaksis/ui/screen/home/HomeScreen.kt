@@ -1,5 +1,10 @@
 package com.profilaksis.profilaksis.ui.screen.home
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
@@ -24,6 +30,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,28 +39,43 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.profilaksis.profilaksis.data.model.ResponseArticleItem
 import com.profilaksis.profilaksis.data.model.UserLogin
+import com.profilaksis.profilaksis.di.Injection
 import com.profilaksis.profilaksis.ui.components.ArticleCard
 import com.profilaksis.profilaksis.ui.components.Greeting
+import com.profilaksis.profilaksis.ui.screen.ViewModelFactory
 import com.profilaksis.profilaksis.utils.Greeting
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel(
+        factory = ViewModelFactory(Injection.provideRepository())
+    ),
     userData: UserLogin,
+    context: Context,
 ) {
-    var searchText by remember { mutableStateOf("") }
+
+    val uiState by viewModel.uiState.collectAsState()
+    var isLoading by remember { mutableStateOf(false) }
+    var articleData by remember { mutableStateOf(emptyList<ResponseArticleItem>()) }
+
+    LaunchedEffect(Unit) {
+        viewModel.getDataArticle()
+    }
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
     ) {
         Box(
             modifier = Modifier
@@ -80,7 +103,7 @@ fun HomeScreen(
                         url = userData.avatar,
                         greeting = Greeting.getGreeting(),
                         icon = true,
-                        modifier = Modifier.height(50.dp)
+                        modifier = Modifier.height(60.dp)
                     )
                 }
             }
@@ -263,39 +286,67 @@ fun HomeScreen(
             modifier = Modifier.padding(10.dp),
             textAlign = TextAlign.Center
         )
-        LazyColumn(
-            modifier = Modifier
-                .padding(horizontal = 20.dp),
-            content = {
-                item {
+        if (isLoading) {
+            LazyColumn(
+                content = {
+                    items(3) {
+                        ArticleCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(5.dp),
+                            url = "",
+                            title = "",
+                            author = "",
+                            onClick = {}
+                        )
+                    }
+                }
+            )
+        } else {
+            LazyColumn(
+                modifier = Modifier.padding(horizontal = 20.dp),
+            ) {
+                items(articleData) { article ->
                     ArticleCard(
-                        url = "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                        title = "How to get a good night's sleep",
-                        author = "Ryan",
+                        url = article.imageUrl!!,
+                        title = article.title!!,
+                        author = article.tags!!,
+                        onClick = {
+                            if (article.sourceUrl != null){
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.sourceUrl))
+                                context.startActivity(intent)
+                            } else {
+                                Toast.makeText(context, "Sorry, this article is not available", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
                     )
                 }
-                item {
-                    ArticleCard(
-                        url = "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                        title = "How to get a good night's sleep",
-                        author = "Ryan",
-                    )
-                }
-                item {
-                    ArticleCard(
-                        url = "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                        title = "How to get a good night's sleep",
-                        author = "Ryan",
-                    )
-                }
-                item {
-                    ArticleCard(
-                        url = "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                        title = "How to get a good night's sleep",
-                        author = "Ryan",
-                    )
-                }
-            })
+            }
+        }
+    }
+
+    LaunchedEffect(uiState) {
+        when (val currentState = uiState) {
+            is HomeUiState.Loading -> {
+                isLoading = true
+            }
+
+            is HomeUiState.Success -> {
+                articleData = currentState.result
+                isLoading = false
+
+            }
+
+            is HomeUiState.Error -> {
+                isLoading = false
+                Toast.makeText(
+                    null,
+                    currentState.errorMessage,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 }
 
@@ -304,12 +355,13 @@ fun HomeScreen(
 fun HomeScreenPreview() {
     HomeScreen(
         userData = UserLogin(
-            id = 1,
-            username = "Riyan",
+            username = "test",
             email = "",
+            id = 1,
             role = "",
-            avatar = "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            token = " "
-        )
+            token = "",
+            avatar = "https://i.pravatar.cc/150?img=3",
+        ),
+        context = LocalContext.current
     )
 }

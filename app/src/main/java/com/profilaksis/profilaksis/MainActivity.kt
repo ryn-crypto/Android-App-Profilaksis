@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.profilaksis.profilaksis.container.ProfilaksisApp
@@ -55,7 +56,7 @@ fun AppContainer() {
                 authViewModel.saveLoginInfo(it)
                 dataUser = authViewModel.getLoggedInfo()
                 isBlank = false
-            }
+            },
         )
     } else {
         if (!isBlank) {
@@ -68,7 +69,8 @@ fun AppContainer() {
                 onClick = {
                     authViewModel.clearLoginInfo()
                     isBlank = true
-                }
+                },
+                context = LocalContext.current
             )
         } else {
             ScreenContainer(
@@ -101,7 +103,8 @@ fun HomePreview() {
                     id = 1,
                     role = "",
                     token = ""
-                )
+                ),
+                context = LocalContext.current,
             )
         }
     }

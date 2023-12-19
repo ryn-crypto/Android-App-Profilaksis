@@ -1,7 +1,10 @@
 package com.profilaksis.profilaksis.data.remote
 
 import com.profilaksis.profilaksis.data.model.LoginResponse
+import com.profilaksis.profilaksis.data.model.PredictionResponse
 import com.profilaksis.profilaksis.data.model.RegisterResponse
+import com.profilaksis.profilaksis.data.model.ResponseArticle
+import com.profilaksis.profilaksis.data.model.ResponseArticleItem
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -26,4 +29,12 @@ interface ApiService {
     fun loginUser(
         @Body userRequestBody: RequestBody
     ): Call<LoginResponse>
+
+    @POST("/prediksi/diabetes")
+    fun predict(
+        @Body userRequestBody: RequestBody
+    ): Call<PredictionResponse>
+
+    @GET("/articles/getAllArticles")
+    fun getAllArticles(): Call<ResponseArticle>
 }

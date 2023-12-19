@@ -51,8 +51,9 @@ import com.profilaksis.profilaksis.data.diabetesData
 import com.profilaksis.profilaksis.data.exerciseData
 import com.profilaksis.profilaksis.data.fruitData
 import com.profilaksis.profilaksis.data.genderData
-import com.profilaksis.profilaksis.data.model.ResponseResult
+import com.profilaksis.profilaksis.data.model.ResultData
 import com.profilaksis.profilaksis.data.radioButtonStatus
+import com.profilaksis.profilaksis.data.remote.requestdata.PredictRequestBody
 import com.profilaksis.profilaksis.data.smokingData
 import com.profilaksis.profilaksis.data.strokeData
 import com.profilaksis.profilaksis.data.vegetableData
@@ -72,7 +73,7 @@ fun HeartScreen(
     ),
     clickBack: () -> Unit,
     snackbarHostState: SnackbarHostState,
-    clickSubmit: (ResponseResult) -> Unit,
+    clickSubmit: (ResultData) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var isLoading = false
@@ -329,7 +330,24 @@ fun HeartScreen(
                             .padding(10.dp)
                             .fillMaxWidth(0.7f),
                         onClick = {
-                            viewModel.sendData()
+                            viewModel.sendData(
+                                PredictRequestBody(
+                                    kelamin = genderStatus.ordinal,
+                                    umur = ageStatus.value.toInt(),
+                                    bmi = bmi,
+                                    tekananDarah = bloodPressureStatus.ordinal,
+                                    kolesterol = cholesterolStatus.ordinal,
+                                    stroke = strokeStatus.ordinal,
+                                    diabetes = diabetesStatus.ordinal,
+                                    sakitJantung = null,
+                                    rokok = smokingStatus.ordinal,
+                                    alkohol = alcoholStatus.ordinal,
+                                    olahraga = exerciseStatus.ordinal,
+                                    buah = fruitStatus.ordinal,
+                                    sayur = vegetableStatus.ordinal,
+                                    susahJalan = walkStatus.ordinal,
+                                )
+                            )
                         },
                         enabled = ageStatus.value.isNotEmpty() && bmi != 0
                     ) {
@@ -339,7 +357,7 @@ fun HeartScreen(
                 LaunchedEffect(uiState) {
                     when (val currentState = uiState) {
                         is HeartUiState.Loading -> {
-                            isLoading = true
+//                            isLoading = true
                         }
 
                         is HeartUiState.Success -> {

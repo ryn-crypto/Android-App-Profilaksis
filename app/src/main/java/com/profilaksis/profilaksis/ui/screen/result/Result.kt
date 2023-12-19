@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.profilaksis.profilaksis.data.model.ResponseArticleItem
-import com.profilaksis.profilaksis.data.model.ResponseResult
+import com.profilaksis.profilaksis.data.model.ResultData
 import com.profilaksis.profilaksis.di.Injection
 import com.profilaksis.profilaksis.ui.components.ArticleCard
 import com.profilaksis.profilaksis.ui.components.ResultCard
@@ -42,7 +42,7 @@ fun ResultScreen(
         factory = ViewModelFactory(Injection.provideRepository())
     ),
     backScreen: String,
-    parameter: ResponseResult,
+    parameter: ResultData,
     onClick: () -> Unit = {},
     back: (String) -> Unit = {},
 ) {
@@ -78,8 +78,8 @@ fun ResultScreen(
                             .padding(vertical = 5.dp, horizontal = 20.dp),
                         percentage = it1,
                         date = formatDate(parameter.date!!),
-                        userName = parameter.userName,
-                        description = parameter.description,
+                        userName = "parameter.userName",
+                        description = parameter.keterangan,
                         onclick = onClick,
                         back = { back(backScreen) }
                     )
@@ -182,11 +182,11 @@ fun Article(
 @Composable
 fun ResultPreview() {
     ResultScreen(
-        parameter = ResponseResult(
-            prediction = 75f,
-            date = Date(),
-            userName = "test",
-            description = "test"
+        parameter = ResultData(
+            "1",
+            "username",
+            90f,
+            Date(),
         ),
         backScreen = "heart"
     )

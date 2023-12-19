@@ -1,9 +1,11 @@
 package com.profilaksis.profilaksis.ui.screen.diabetes
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profilaksis.profilaksis.data.Repository
-import com.profilaksis.profilaksis.data.model.ResponseResult
+import com.profilaksis.profilaksis.data.model.ResultData
+import com.profilaksis.profilaksis.data.remote.requestdata.PredictRequestBody
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -13,24 +15,26 @@ class DiabetesViewModel(private val repository: Repository) : ViewModel() {
         DiabetesUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-    fun sendData() {
+    fun sendData(dataRequest: PredictRequestBody) {
+        Log.e("test123", dataRequest.toString())
         viewModelScope.launch {
             try {
-                val sendData = repository.sendData()
-                _uiState.value = DiabetesUiState.Success(sendData)
+                val responseData = repository.sendData(dataRequest)
+                Log.e("test123", responseData.toString())
+                _uiState.value = DiabetesUiState.Success(responseData.data!!)
             } catch (e: Exception) {
                 _uiState.value = DiabetesUiState.Error("Failed to load data: ${e.message}")
             }
         }
     }
     fun resetUiState() {
-        _uiState.value = DiabetesUiState.Initial(ResponseResult())
+        _uiState.value = DiabetesUiState.Initial(ResultData())
     }
 }
 
 sealed class DiabetesUiState {
     object Loading : DiabetesUiState()
-    data class Initial(val result: ResponseResult) : DiabetesUiState()
-    data class Success(val result: ResponseResult) : DiabetesUiState()
+    data class Initial(val result: ResultData) : DiabetesUiState()
+    data class Success(val result: ResultData) : DiabetesUiState()
     data class Error(val errorMessage: String) : DiabetesUiState()
 }

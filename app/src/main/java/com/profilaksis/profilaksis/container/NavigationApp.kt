@@ -1,5 +1,6 @@
 package com.profilaksis.profilaksis.container
 
+import android.content.Context
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.RenderEffect
@@ -46,6 +47,7 @@ import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -98,6 +100,7 @@ fun ProfilaksisApp(
     navController: NavHostController = rememberNavController(),
     userData: UserLogin,
     onClick: () -> Unit = { },
+    context: Context,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -111,7 +114,7 @@ fun ProfilaksisApp(
             modifier = Modifier.padding(bottom = 10.dp)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen(userData = userData)
+                HomeScreen(userData = userData, context = context)
             }
             composable(Screen.Profile.route) {
                 ProfileScreen(
@@ -402,7 +405,9 @@ private fun MainScreenPreview() {
                 "test",
                 "test",
                 "test",
-            )
+            ),
+            onClick = { },
+            context = LocalContext.current,
         )
     }
 }

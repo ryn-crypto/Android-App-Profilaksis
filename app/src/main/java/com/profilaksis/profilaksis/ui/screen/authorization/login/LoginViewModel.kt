@@ -4,11 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profilaksis.profilaksis.data.Repository
 import com.profilaksis.profilaksis.data.model.LoginResponse
-import com.profilaksis.profilaksis.data.model.ResponseResult
-import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.data.remote.requestdata.LoginRequestBody
-import com.profilaksis.profilaksis.ui.screen.authorization.register.RegisterUiState
-import com.profilaksis.profilaksis.ui.screen.heart.HeartUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

@@ -1,38 +1,33 @@
 package com.profilaksis.profilaksis.ui.screen.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.profilaksis.profilaksis.data.Repository
+import com.profilaksis.profilaksis.data.model.ResponseArticleItem
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import perfetto.protos.UiState
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-class HomeViewModel(
-    private val repository: Repository
-) : ViewModel() {
-//    private val _uiState: MutableStateFlow<UiState<List<OrderItemProduct>>> = MutableStateFlow(UiState.Loading)
-//    val uiState: StateFlow<UiState<List<OrderItemProduct>>>
-//        get() = _uiState
-//
-//    fun getAllProduct() {
-//        viewModelScope.launch {
-//            repository.getAllProducts()
-//                .catch {
-//                    _uiState.value = UiState.Error(it.message.toString())
-//                }
-//                .collect { orderItem ->
-//                    _uiState.value = UiState.Success(orderItem)
-//                }
-//        }
-//    }
-//    fun getProductByName(name: String) {
-//        viewModelScope.launch {
-//            repository.getProductByName(name)
-//                .catch {
-//                    _uiState.value = UiState.Error(it.message.toString())
-//                }
-//                .collect { orderItem ->
-//                    _uiState.value = UiState.Success(orderItem)
-//                }
-//        }
-//    }
+class HomeViewModel(private val repository: Repository) : ViewModel() {
+    private val _uiState = MutableStateFlow<HomeUiState>(
+        HomeUiState.Loading)
+    val uiState = _uiState.asStateFlow()
+
+    fun getDataArticle() {
+        viewModelScope.launch {
+            try {
+                val dataArticle = repository.getAllArticle()
+                _uiState.value = HomeUiState.Success(dataArticle.data as List<ResponseArticleItem>)
+            } catch (e: Exception) {
+                _uiState.value = HomeUiState.Error("Failed to load data: ${e.message}")
+            }
+        }
+    }
+}
+
+sealed class HomeUiState {
+    object Loading : HomeUiState()
+    data class Success(val result: List<ResponseArticleItem> ) : HomeUiState()
+    data class Error(val errorMessage: String) : HomeUiState()
 }

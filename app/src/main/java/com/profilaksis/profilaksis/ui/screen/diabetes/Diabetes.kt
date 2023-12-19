@@ -1,6 +1,7 @@
 package com.profilaksis.profilaksis.ui.screen.diabetes
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -52,8 +53,9 @@ import com.profilaksis.profilaksis.data.exerciseData
 import com.profilaksis.profilaksis.data.fruitData
 import com.profilaksis.profilaksis.data.genderData
 import com.profilaksis.profilaksis.data.heartData
-import com.profilaksis.profilaksis.data.model.ResponseResult
+import com.profilaksis.profilaksis.data.model.ResultData
 import com.profilaksis.profilaksis.data.radioButtonStatus
+import com.profilaksis.profilaksis.data.remote.requestdata.PredictRequestBody
 import com.profilaksis.profilaksis.data.smokingData
 import com.profilaksis.profilaksis.data.strokeData
 import com.profilaksis.profilaksis.data.vegetableData
@@ -72,7 +74,7 @@ fun DiabetesScreen(
         factory = ViewModelFactory(Injection.provideRepository())
     ),
     snackbarHostState: SnackbarHostState,
-    clickSubmit: (ResponseResult) -> Unit,
+    clickSubmit: (ResultData) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var isLoading = false
@@ -328,7 +330,25 @@ fun DiabetesScreen(
                             .padding(10.dp)
                             .fillMaxWidth(0.7f),
                         onClick = {
-                            viewModel.sendData()
+                            Log.e("test123", "button Clicked")
+                            viewModel.sendData(
+                                PredictRequestBody(
+                                    kelamin =  genderStatus.ordinal,
+                                    umur = ageStatus.value.toInt(),
+                                    bmi = bmi,
+                                    tekananDarah = bloodPressureStatus.ordinal,
+                                    kolesterol = cholesterolStatus.ordinal,
+                                    stroke = strokeStatus.ordinal,
+                                    diabetes = null,
+                                    sakitJantung = heartStatus.ordinal,
+                                    rokok = smokingStatus.ordinal,
+                                    alkohol = alcoholStatus.ordinal,
+                                    olahraga = exerciseStatus.ordinal,
+                                    buah = fruitStatus.ordinal,
+                                    sayur = vegetableStatus.ordinal,
+                                    susahJalan = walkStatus.ordinal,
+                                )
+                            )
                         },
                         enabled = ageStatus.value.isNotEmpty() && bmi != 0
                     ) {
@@ -338,7 +358,7 @@ fun DiabetesScreen(
                 LaunchedEffect(uiState) {
                     when (val currentState = uiState) {
                         is DiabetesUiState.Loading -> {
-                            isLoading = true
+//                            isLoading = true
                         }
 
                         is DiabetesUiState.Success -> {

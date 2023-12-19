@@ -11,8 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.profilaksis.profilaksis.data.model.ResponseResult
-import com.profilaksis.profilaksis.data.model.UserData
+import com.profilaksis.profilaksis.data.model.ResultData
 import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.ui.screen.adds.AddsScreen
 import com.profilaksis.profilaksis.ui.screen.authorization.login.LoginScreen
@@ -28,7 +27,7 @@ fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> 
     var currentId by remember { mutableStateOf(id) }
     var isPremium by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
-    var parameter by remember { mutableStateOf(ResponseResult()) }
+    var parameter by remember { mutableStateOf(ResultData()) }
     var screenBack by remember { mutableStateOf("") }
 
     if (!isPremium) {
@@ -95,12 +94,12 @@ fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> 
                     parameter = parameter,
                     onClick = {
                         currentId = "consultation"
-                        parameter = ResponseResult(null)
+                        parameter = ResultData(null, null, null)
                     },
                     backScreen = screenBack,
                     back = {
                         currentId = it
-                        parameter = ResponseResult(null)
+                        parameter = ResultData(null ,null, null)
                     }
                 )
             }
@@ -108,7 +107,7 @@ fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> 
             "consultation" -> {
                 Log.e("test123 load cons", "param $parameter, id $currentId")
                 Consultation(clickBack = clickBack, clickReset = {
-                    parameter = ResponseResult(null)
+                    parameter = ResultData(null,)
                     currentId = ""
                     Log.e("test123", "param $parameter, id $currentId")
                 })

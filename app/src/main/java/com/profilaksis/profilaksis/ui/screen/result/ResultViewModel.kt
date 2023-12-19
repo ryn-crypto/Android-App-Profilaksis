@@ -22,8 +22,8 @@ class ResultViewModel(private val repository: Repository) : ViewModel() {
     private fun getArticle() {
         viewModelScope.launch {
             try {
-                val getArticle = repository.getArticle()
-                _uiState.value = ResultUiState.Success(getArticle)
+                val getArticle = repository.getAllArticle()
+                _uiState.value = ResultUiState.Success(getArticle.data as List<ResponseArticleItem>)
             } catch (e: Exception) {
                 _uiState.value = ResultUiState.Error("Failed to load data: ${e.message}")
             }
