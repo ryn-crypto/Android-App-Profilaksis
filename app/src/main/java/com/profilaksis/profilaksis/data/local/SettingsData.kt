@@ -34,11 +34,6 @@ object SettingsData {
             tag = "privacy"
         ),
         SettingsItem(
-            title = "About",
-            icon = Icons.Filled.Info,
-            tag = "about"
-        ),
-        SettingsItem(
             title = "Logout",
             icon = Icons.Filled.ExitToApp,
             tag = "logout"

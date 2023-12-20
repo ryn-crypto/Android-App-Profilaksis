@@ -145,6 +145,8 @@ class Repository {
                 ) {
                     if (response.isSuccessful) {
                         val resultData = response.body()
+                        Log.e("test123", "response $response")
+                        Log.e("test123", "response ${response.body()}")
                         continuation.resume(resultData!!)
                     } else {
                         val errorBody = response.errorBody()?.string()

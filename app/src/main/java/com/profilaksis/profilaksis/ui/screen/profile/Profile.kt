@@ -25,14 +25,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.profilaksis.profilaksis.data.local.SettingsData
-import com.profilaksis.profilaksis.data.model.UserData
 import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.di.Injection
 import com.profilaksis.profilaksis.ui.components.BarResult
 import com.profilaksis.profilaksis.ui.components.Greeting
 import com.profilaksis.profilaksis.ui.components.SettingsCard
 import com.profilaksis.profilaksis.ui.screen.ViewModelFactory
-import com.profilaksis.profilaksis.utils.formatDate
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,7 +46,7 @@ fun ProfileScreen(
     val greeting = com.profilaksis.profilaksis.utils.Greeting.getGreeting()
 
     LaunchedEffect(Unit) {
-        viewModel.loadData()
+        viewModel.loadData(userData.token)
     }
 
     Scaffold(
@@ -107,7 +105,7 @@ fun ProfileContent(
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-                if (lasHistory != null) {
+                if (lasHistory?.id != null) {
                     BarResult(
                         title = "formatDate(lasHistory.createdAt),",
                         type = lasHistory.kategoriPenyakit.toString(),
@@ -119,7 +117,6 @@ fun ProfileContent(
 
             is ProfileUiState.Error -> {
                 val errorMessage = uiState.errorMessage
-                // Show error message
                 Text(text = errorMessage, color = MaterialTheme.colorScheme.error)
             }
         }

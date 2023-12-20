@@ -75,7 +75,7 @@ fun HeartScreen(
     clickBack: () -> Unit,
     snackbarHostState: SnackbarHostState,
     clickSubmit: (ResultData) -> Unit,
-    token : UserLogin
+    token: UserLogin,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var isLoading = false
@@ -157,13 +157,26 @@ fun HeartScreen(
                     height,
                     "Height",
                     rightLabel = "Cm",
-                    onValueChange = { height.intValue = it.toInt() })
+                    onValueChange = {
+                        if (it == "") {
+                            height.intValue = 0
+                        } else {
+                            height.intValue = it.toInt()
+                        }
+                    })
                 Spacer(modifier = Modifier.padding(5.dp))
                 IntTextField(
                     weight,
                     "Weight",
                     rightLabel = "Kg",
-                    onValueChange = { weight.intValue = it.toInt() })
+                    onValueChange = {
+                        if (it == "") {
+                            weight.intValue = 0
+                        } else {
+                            weight.intValue = it.toInt()
+                        }
+                    }
+                )
                 Spacer(modifier = Modifier.padding(5.dp))
                 Spacer(modifier = Modifier.padding(5.dp))
                 ElevatedCard(
@@ -408,6 +421,6 @@ fun HeartPreview() {
 
     HeartScreen(
         clickBack = {}, snackbarHostState = SnackbarHostState(), clickSubmit = {},
-        token = UserLogin(1,"","", "", "", "")
+        token = UserLogin(1, "", "", "", "", "")
     )
 }
