@@ -54,6 +54,7 @@ import com.profilaksis.profilaksis.data.fruitData
 import com.profilaksis.profilaksis.data.genderData
 import com.profilaksis.profilaksis.data.heartData
 import com.profilaksis.profilaksis.data.model.ResultData
+import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.data.radioButtonStatus
 import com.profilaksis.profilaksis.data.remote.requestdata.PredictRequestBody
 import com.profilaksis.profilaksis.data.smokingData
@@ -75,6 +76,7 @@ fun DiabetesScreen(
     ),
     snackbarHostState: SnackbarHostState,
     clickSubmit: (ResultData) -> Unit,
+    token : UserLogin
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var isLoading = false
@@ -347,7 +349,7 @@ fun DiabetesScreen(
                                     buah = fruitStatus.ordinal,
                                     sayur = vegetableStatus.ordinal,
                                     susahJalan = walkStatus.ordinal,
-                                )
+                                ), token.token
                             )
                         },
                         enabled = ageStatus.value.isNotEmpty() && bmi != 0
@@ -440,6 +442,7 @@ fun DiabetesPreview() {
     DiabetesScreen(
         clickBack = {},
         snackbarHostState = SnackbarHostState(),
-        clickSubmit = {}
+        clickSubmit = {},
+        token = UserLogin(0, "", "", "", "", "")
     )
 }

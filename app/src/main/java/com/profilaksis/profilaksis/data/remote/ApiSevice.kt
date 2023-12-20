@@ -1,5 +1,6 @@
 package com.profilaksis.profilaksis.data.remote
 
+import com.profilaksis.profilaksis.data.model.HistoryResponse
 import com.profilaksis.profilaksis.data.model.LoginResponse
 import com.profilaksis.profilaksis.data.model.PredictionResponse
 import com.profilaksis.profilaksis.data.model.RegisterResponse
@@ -22,18 +23,27 @@ interface ApiService {
 
     @POST("/auth/register")
     fun registerUser(
-        @Body userRequestBody: RequestBody
+        @Body userRequestBody: RequestBody,
     ): Call<RegisterResponse>
 
     @POST("/auth/login")
     fun loginUser(
-        @Body userRequestBody: RequestBody
+        @Body userRequestBody: RequestBody,
     ): Call<LoginResponse>
 
     @POST("/prediksi/diabetes")
-    fun predict(
-        @Body userRequestBody: RequestBody
+    fun predictDiabetes(
+        @Body userRequestBody: RequestBody,
     ): Call<PredictionResponse>
+
+
+    @POST("/prediksi/jantung")
+    fun predictHeart(
+        @Body userRequestBody: RequestBody,
+    ): Call<PredictionResponse>
+
+    @GET("/history/cek-kesehatan")
+    fun getHistory(): Call<HistoryResponse>
 
     @GET("/articles/getAllArticles")
     fun getAllArticles(): Call<ResponseArticle>

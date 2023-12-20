@@ -15,11 +15,11 @@ class DiabetesViewModel(private val repository: Repository) : ViewModel() {
         DiabetesUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-    fun sendData(dataRequest: PredictRequestBody) {
+    fun sendData(dataRequest: PredictRequestBody, token: String) {
         Log.e("test123", dataRequest.toString())
         viewModelScope.launch {
             try {
-                val responseData = repository.sendData(dataRequest)
+                val responseData = repository.sendData(dataRequest, token, "diabetes")
                 Log.e("test123", responseData.toString())
                 _uiState.value = DiabetesUiState.Success(responseData.data!!)
             } catch (e: Exception) {

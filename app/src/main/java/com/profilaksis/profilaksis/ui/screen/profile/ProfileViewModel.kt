@@ -3,7 +3,7 @@ package com.profilaksis.profilaksis.ui.screen.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profilaksis.profilaksis.data.Repository
-import com.profilaksis.profilaksis.data.model.HistoryData
+import com.profilaksis.profilaksis.data.model.ResultsItem
 import com.profilaksis.profilaksis.data.model.UserData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,6 +29,6 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
 
 sealed class ProfileUiState {
     object Loading : ProfileUiState()
-    data class Success(val lastStory: HistoryData?, val profile: UserData?) : ProfileUiState()
+    data class Success(val lastStory: ResultsItem?, val profile: UserData?) : ProfileUiState()
     data class Error(val errorMessage: String) : ProfileUiState()
 }

@@ -42,7 +42,7 @@ fun ProfileScreen(
         factory = ViewModelFactory(Injection.provideRepository())
     ),
     userData: UserLogin,
-    onCLick: () -> Unit
+    onCLick: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val greeting = com.profilaksis.profilaksis.utils.Greeting.getGreeting()
@@ -109,9 +109,9 @@ fun ProfileContent(
                 Spacer(modifier = Modifier.height(10.dp))
                 if (lasHistory != null) {
                     BarResult(
-                        title = formatDate(lasHistory.createdAt),
-                        type = lasHistory.type,
-                        percent = lasHistory.predictionResult,
+                        title = "formatDate(lasHistory.createdAt),",
+                        type = lasHistory.kategoriPenyakit.toString(),
+                        percent = lasHistory.predictionResult!!,
                         onClick = { Unit }
                     )
                 }

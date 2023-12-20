@@ -21,7 +21,11 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HistoryCard(percentage: Float, date: String, describe: String) {
+fun HistoryCard(
+    percentage: Float,
+    date: String,
+    describe: String,
+) {
     ElevatedCard(
         onClick = { /*TODO*/ },
         modifier = Modifier
@@ -37,7 +41,7 @@ fun HistoryCard(percentage: Float, date: String, describe: String) {
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 20.dp, start = 10.dp)
             )
-            Row (
+            Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 PercentageCircle(
@@ -75,5 +79,9 @@ fun HistoryCard(percentage: Float, date: String, describe: String) {
 @Preview(showBackground = true)
 @Composable
 fun HistoryCardPreview() {
-    HistoryCard(percentage = 70f, date = "12 December 2021", describe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae ni")
+    HistoryCard(
+        percentage = 70f,
+        date = "12 December 2021",
+        describe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae ni"
+    )
 }

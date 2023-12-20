@@ -57,6 +57,7 @@ fun AppContainer() {
                 dataUser = authViewModel.getLoggedInfo()
                 isBlank = false
             },
+            token = dataUser
         )
     } else {
         if (!isBlank) {
@@ -70,7 +71,8 @@ fun AppContainer() {
                     authViewModel.clearLoginInfo()
                     isBlank = true
                 },
-                context = LocalContext.current
+                context = LocalContext.current,
+                token = dataUser
             )
         } else {
             ScreenContainer(
@@ -79,7 +81,8 @@ fun AppContainer() {
                 },
                 userData = {
                     authViewModel.saveLoginInfo(it)
-                }
+                },
+                token = dataUser
             )
         }
     }
@@ -105,6 +108,15 @@ fun HomePreview() {
                     token = ""
                 ),
                 context = LocalContext.current,
+                onClick = {},
+                token = UserLogin(
+                    username = "test",
+                    email = "",
+                    avatar = "",
+                    id = 1,
+                    role = "",
+                    token = ""
+                )
             )
         }
     }

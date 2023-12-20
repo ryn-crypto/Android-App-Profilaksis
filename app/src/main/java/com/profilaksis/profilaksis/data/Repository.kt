@@ -2,11 +2,12 @@ package com.profilaksis.profilaksis.data
 
 import android.util.Log
 import com.google.gson.Gson
-import com.profilaksis.profilaksis.data.model.HistoryData
+import com.profilaksis.profilaksis.data.model.HistoryResponse
 import com.profilaksis.profilaksis.data.model.LoginResponse
 import com.profilaksis.profilaksis.data.model.PredictionResponse
 import com.profilaksis.profilaksis.data.model.RegisterResponse
 import com.profilaksis.profilaksis.data.model.ResponseArticle
+import com.profilaksis.profilaksis.data.model.ResultsItem
 import com.profilaksis.profilaksis.data.model.UserData
 import com.profilaksis.profilaksis.data.remote.ApiConfig
 import com.profilaksis.profilaksis.data.remote.requestdata.LoginRequestBody
@@ -119,12 +120,22 @@ class Repository {
         }
     }
 
-    suspend fun sendData(dataRequest: PredictRequestBody ): PredictionResponse {
+    suspend fun sendData(
+        dataRequest: PredictRequestBody,
+        token: String,
+        type: String,
+    ): PredictionResponse {
 
         val requestBody =
             Gson().toJson(dataRequest).toRequestBody("application/json".toMediaTypeOrNull())
 
-        val client = ApiConfig.getApiService().predict(requestBody)
+        val client =
+            when (type) {
+                "diabetes" -> ApiConfig.getApiServiceWithAuth(token).predictDiabetes(requestBody)
+                else -> ApiConfig.getApiServiceWithAuth(token).predictHeart(requestBody)
+            }
+
+        Log.e("test123", client.request().toString())
 
         return suspendCoroutine { continuation ->
             client.enqueue(object : Callback<PredictionResponse> {
@@ -151,16 +162,44 @@ class Repository {
         }
     }
 
+    suspend fun getHistory(token: String): HistoryResponse {
+        val client = ApiConfig.getApiServiceWithAuth(token).getHistory()
 
-    fun getLastHistory(): HistoryData {
-        return HistoryData(
-            "1",
-            "username",
-            90f,
-            "Hearth",
-            Date(),
-            "description",
-            0.5f
+        return suspendCoroutine { continuation ->
+            client.enqueue(object : Callback<HistoryResponse> {
+                override fun onResponse(
+                    call: Call<HistoryResponse>,
+                    response: Response<HistoryResponse>,
+                ) {
+                    if (response.isSuccessful) {
+                        val resultData = response.body()
+                        continuation.resume(resultData!!)
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        val errorMessage = errorBody?.let { parseErrorMessage(it) }
+                        val responseData = HistoryResponse(message = errorMessage)
+                        continuation.resume(responseData)
+                    }
+                }
+
+                override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
+                    val responseData = HistoryResponse(message = "Failure: ${t.message}")
+                    continuation.resume(responseData)
+                }
+            })
+        }
+    }
+
+
+    fun getLastHistory(): ResultsItem {
+        return ResultsItem(
+            id = 1,
+            username = "Riyan",
+            predictionResult = 1f,
+            healthStatus = "Sehat",
+            createdAt = Date(),
+            kategoriPenyakit = "Tidak ada",
+            keterangan = "Tidak ada",
         )
     }
 

@@ -77,7 +77,7 @@ fun ResultScreen(
                             .fillMaxWidth()
                             .padding(vertical = 5.dp, horizontal = 20.dp),
                         percentage = it1,
-                        date = formatDate(parameter.date!!),
+                        date = "formatDate(parameter.date!!)",
                         userName = "parameter.userName",
                         description = parameter.keterangan,
                         onclick = onClick,

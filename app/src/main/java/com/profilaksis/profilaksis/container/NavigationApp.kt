@@ -101,6 +101,7 @@ fun ProfilaksisApp(
     userData: UserLogin,
     onClick: () -> Unit = { },
     context: Context,
+    token: UserLogin?,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -123,7 +124,7 @@ fun ProfilaksisApp(
                 )
             }
             composable(Screen.History.route) {
-                HistoryScreen()
+                HistoryScreen(token = token, context = context)
             }
         }
 
@@ -408,6 +409,14 @@ private fun MainScreenPreview() {
             ),
             onClick = { },
             context = LocalContext.current,
+            token = UserLogin(
+                1,
+                "test",
+                "test",
+                "test",
+                "test",
+                "test",
+            )
         )
     }
 }

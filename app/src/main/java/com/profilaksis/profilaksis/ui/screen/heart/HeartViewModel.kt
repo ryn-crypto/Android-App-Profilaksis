@@ -1,11 +1,10 @@
 package com.profilaksis.profilaksis.ui.screen.heart
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.profilaksis.profilaksis.data.Repository
-import com.profilaksis.profilaksis.data.model.HistoryData
 import com.profilaksis.profilaksis.data.model.ResultData
-import com.profilaksis.profilaksis.data.model.UserData
 import com.profilaksis.profilaksis.data.remote.requestdata.PredictRequestBody
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,11 +15,12 @@ class HeartViewModel(private val repository: Repository) : ViewModel() {
         HeartUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-    fun sendData(dataRequest: PredictRequestBody) {
+    fun sendData(dataRequest: PredictRequestBody, token: String) {
         viewModelScope.launch {
             try {
-                val sendData = repository.sendData(dataRequest)
-                _uiState.value = HeartUiState.Success(sendData.data!!)
+                val data = repository.sendData(dataRequest, token, "heart")
+                _uiState.value = HeartUiState.Success(data.data!!)
+                Log.e("test data dipanggil", data.data.toString())
             } catch (e: Exception) {
                 _uiState.value = HeartUiState.Error("Failed to load data: ${e.message}")
             }

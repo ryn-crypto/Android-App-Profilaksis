@@ -22,10 +22,10 @@ import com.profilaksis.profilaksis.ui.screen.heart.HeartScreen
 import com.profilaksis.profilaksis.ui.screen.result.ResultScreen
 
 @Composable
-fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> Unit) {
+fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> Unit, token: UserLogin?) {
 
     var currentId by remember { mutableStateOf(id) }
-    var isPremium by remember { mutableStateOf(false) }
+    var isPremium by remember { mutableStateOf(true) }
     val snackbarHostState = remember { SnackbarHostState() }
     var parameter by remember { mutableStateOf(ResultData()) }
     var screenBack by remember { mutableStateOf("") }
@@ -76,7 +76,9 @@ fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> 
                         parameter = it
                         currentId = "result"
                         screenBack = "heart"
-                    })
+                    },
+                    token = token!!
+                )
             }
 
             "diabetes" -> {
@@ -86,7 +88,9 @@ fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> 
                         parameter = it
                         currentId = "result"
                         screenBack = "diabetes"
-                    })
+                    },
+                    token = token!!
+                )
             }
 
             "result" -> {
@@ -107,7 +111,7 @@ fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> 
             "consultation" -> {
                 Log.e("test123 load cons", "param $parameter, id $currentId")
                 Consultation(clickBack = clickBack, clickReset = {
-                    parameter = ResultData(null,)
+                    parameter = ResultData(null, null, null)
                     currentId = ""
                     Log.e("test123", "param $parameter, id $currentId")
                 })
