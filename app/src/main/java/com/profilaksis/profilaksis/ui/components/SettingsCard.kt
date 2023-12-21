@@ -14,16 +14,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.profilaksis.profilaksis.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    icon: ImageVector,
+    icon: Int,
     title: String,
 ) {
     ElevatedCard(
@@ -39,7 +42,7 @@ fun SettingsCard(
             Icon(
                 modifier = modifier
                     .weight(1f),
-                imageVector = icon,
+                painter = painterResource(id = icon),
                 tint = MaterialTheme.colorScheme.onSurface,
                 contentDescription = "History card"
             )
@@ -63,5 +66,5 @@ fun SettingsCard(
 @Preview(showBackground = true)
 @Composable
 fun SettingsCardPreview() {
-    SettingsCard(onClick = { /*TODO*/ }, icon = Icons.Filled.Person, title = "Account Settings")
+    SettingsCard(onClick = { /*TODO*/ }, icon = R.drawable.logout, title = "Logout")
 }

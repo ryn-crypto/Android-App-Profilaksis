@@ -40,7 +40,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -242,7 +241,7 @@ fun CustomBottomNavigation(navController: NavHostController) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .height(70.dp)
+            .height(60.dp)
             .paint(
                 painter = painterResource(R.drawable.bottom_navigation),
                 contentScale = ContentScale.FillWidth
@@ -264,14 +263,14 @@ fun CustomBottomNavigation(navController: NavHostController) {
                         painter = item.iconActive,
                         contentDescription = item.title,
                         tint = Color.White,
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(25.dp)
                     )
                 } else {
                     Icon(
                         painter = item.iconIdle,
                         contentDescription = item.title,
                         tint = Color.White.copy(alpha = 0.5f),
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(25.dp)
                     )
                 }
             }

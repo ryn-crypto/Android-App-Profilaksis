@@ -13,7 +13,7 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
 
 
     private val _uiState = MutableStateFlow<LoginUiState>(
-        LoginUiState.Loading)
+        LoginUiState.Initial)
     val uiState = _uiState.asStateFlow()
 
     fun login(dataLogin: LoginRequestBody) {

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -19,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,7 +34,7 @@ fun Greeting(
     url: String,
     greeting: String,
     icon: Boolean,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
 
     val padding = if (icon) {
@@ -48,7 +50,9 @@ fun Greeting(
     }
 
     Row(
-        modifier = modifier.height(100.dp),
+        modifier = Modifier
+            .wrapContentHeight()
+            .height(100.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         CircleImage(
@@ -58,7 +62,9 @@ fun Greeting(
                 .size(50.dp),
         )
         Column(
-            modifier = modifier.weight(2f).padding(start = padding),
+            modifier = Modifier
+                .weight(2f)
+                .padding(start = padding),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start
         ) {
@@ -67,12 +73,12 @@ fun Greeting(
         }
         if (icon) {
             Icon(
-                modifier = modifier
+                modifier = Modifier
                     .weight(1f)
                     .wrapContentSize()
                     .padding(end = 10.dp),
                 tint = Color(color),
-                imageVector = Icons.Filled.Menu,
+                painter = painterResource(R.drawable.profile_seetings),
                 contentDescription = stringResource(R.string.user_image),
             )
         }

@@ -2,6 +2,7 @@ package com.profilaksis.profilaksis.ui.screen.profile
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -124,7 +125,8 @@ fun ProfileContent(
         LazyColumn(
             modifier = modifier
                 .fillMaxSize()
-                .padding(start = 16.dp, end = 16.dp, bottom = 70.dp)
+                .padding(horizontal = 20.dp),
+            contentPadding = PaddingValues(bottom = 70.dp)
         ) {
             items(settings) { setting ->
                 SettingsCard(

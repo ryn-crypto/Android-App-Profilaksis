@@ -35,4 +35,7 @@ data class ResponseArticleItem(
 
     @field:SerializedName("source_url")
     val sourceUrl: String? = null,
+
+    @field:SerializedName("author")
+    val author: String? = null,
 )

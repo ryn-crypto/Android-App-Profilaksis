@@ -68,11 +68,11 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation ("androidx.compose.material:material:1.5.4")
+    implementation("androidx.compose.material:material:1.5.4")
     // image loader
     implementation("io.coil-kt:coil-compose:2.5.0")
     //  navigation
-    implementation ("androidx.navigation:navigation-compose:2.7.5")
+    implementation("androidx.navigation:navigation-compose:2.7.5")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -82,10 +82,13 @@ dependencies {
     implementation("androidx.compose.ui:ui-text-android:1.5.4")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
     implementation("androidx.constraintlayout:constraintlayout-compose-android:1.1.0-alpha13")
-    // viewmodel
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    // view model
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.benchmark:benchmark-common:1.2.2")
-
+    implementation("com.google.android.material:material:1.9.0")
+    // lottie
+    implementation("com.airbnb.android:lottie-compose:6.2.0")
+    // testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

@@ -5,6 +5,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -110,8 +111,7 @@ fun HistoryContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LazyColumn(
-            modifier = modifier
-                .padding(bottom = 20.dp),
+            contentPadding = PaddingValues(bottom = 80.dp),
             content = {
             items(dataHistory.size) { index ->
                 HistoryCard(

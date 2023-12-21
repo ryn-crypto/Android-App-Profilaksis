@@ -3,39 +3,40 @@ package com.profilaksis.profilaksis.data.local
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.ui.res.painterResource
+import com.profilaksis.profilaksis.R
 import com.profilaksis.profilaksis.data.model.SettingsItem
 
 object SettingsData {
     val settings = listOf(
         SettingsItem(
             title = "Account Settings",
-            icon = Icons.Filled.Person,
+            icon = R.drawable.profile_idle,
             tag = "account"
         ),
         SettingsItem(
             title = "Display",
-            icon = Icons.Filled.Info,
+            icon = R.drawable.mode,
             tag = "display"
         ),
         SettingsItem(
             title = "Help & Support",
-            icon = Icons.Filled.Info,
+            icon = R.drawable.information,
             tag = "help"
         ),
         SettingsItem(
             title = "Terms & Conditions",
-            icon = Icons.Filled.Info,
+            icon = R.drawable.terms,
             tag = "terms"
         ),
         SettingsItem(
             title = "Privacy Policy",
-            icon = Icons.Filled.Info,
+            icon = R.drawable.secure,
             tag = "privacy"
         ),
         SettingsItem(
             title = "Logout",
-            icon = Icons.Filled.ExitToApp,
+            icon = R.drawable.logout,
             tag = "logout"
         ),
     )

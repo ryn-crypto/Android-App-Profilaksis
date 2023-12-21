@@ -1,7 +1,7 @@
 package com.profilaksis.profilaksis.ui.screen.authorization.login
 
-import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,9 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ProgressIndicatorDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,6 +43,7 @@ import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.data.remote.requestdata.LoginRequestBody
 import com.profilaksis.profilaksis.di.Injection
 import com.profilaksis.profilaksis.ui.components.CustomInput
+import com.profilaksis.profilaksis.ui.components.Loader
 import com.profilaksis.profilaksis.ui.screen.ViewModelFactory
 
 @Composable
@@ -60,8 +59,6 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     var visible by remember { mutableStateOf(true) }
     var isLoading by remember { mutableStateOf(false) }
-
-    Log.e("test123", "$userName dan $password")
 
     val uiState by viewModel.uiState.collectAsState()
 
@@ -79,18 +76,12 @@ fun LoginScreen(
         ) {
             Image(
                 modifier = Modifier
-                    .height(100.dp)
-                    .width(100.dp),
+                    .height(150.dp)
+                    .width(150.dp)
+                    .padding(bottom = 16.dp),
                 painter = painterResource(R.drawable.image_logo),
                 contentDescription = "Logo",
             )
-//            Icon(
-//                modifier = Modifier
-//                    .height(100.dp)
-//                    .width(100.dp),
-//                painter = painterResource(R.drawable.image_logo),
-//                contentDescription = "Logo",
-//            )
         }
         Spacer(modifier = Modifier.height(16.dp))
         CustomInput(
@@ -123,6 +114,7 @@ fun LoginScreen(
                         password = password
                     )
                 )
+                viewModel.loadingUiState()
             },
             enabled = userName.isNotEmpty() && password.isNotEmpty(),
             modifier = Modifier.fillMaxWidth()
@@ -148,16 +140,18 @@ fun LoginScreen(
     LaunchedEffect(uiState) {
         when (val currentState = uiState) {
             is LoginUiState.Loading -> {
-//                isLoading = true
+                isLoading = true
             }
 
             is LoginUiState.Success -> {
                 currentState.result.data?.let { loginSuccess(it) }
                 viewModel.resetUiState()
+                isLoading = false
             }
 
             is LoginUiState.Error -> {
                 snackbarHostState.showSnackbar(currentState.errorMessage)
+                isLoading = false
             }
 
             else -> {}
@@ -167,15 +161,10 @@ fun LoginScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .wrapContentSize()
+                .background(MaterialTheme.colorScheme.background),
+            contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .align(Alignment.Center),
-                color = Color.Blue,
-                strokeWidth = ProgressIndicatorDefaults.CircularStrokeWidth
-            )
+            Loader()
         }
     }
 }
