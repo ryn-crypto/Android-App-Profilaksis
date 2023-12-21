@@ -25,16 +25,18 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.profilaksis.profilaksis.R
 
 @Composable
 fun BarResult(title: String, type: String, percent: Float, onClick: () -> Unit) {
     val health = when {
-        percent > 90 -> "Are at Risk"
-        percent > 60 -> "UnHealthy"
-        else -> "Healthy"
+        percent > 90 -> R.string.danger
+        percent > 60 -> R.string.unheathy
+        else -> R.string.healthy
     }
     val gradientBrush = when {
         percent < 35 -> Brush.linearGradient(
@@ -99,14 +101,14 @@ fun BarResult(title: String, type: String, percent: Float, onClick: () -> Unit) 
             Row {
                 Text(text = type, style = MaterialTheme.typography.bodyLarge)
                 Text(
-                    text = "${percent.toInt()}% risks",
+                    text = "${percent.toInt()}% " + stringResource(id = R.string.risks),
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(start = 10.dp)
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
             Text(
-                text = health,
+                text = stringResource(id = health),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     shadow = Shadow(
                         color = Color.Black,
@@ -134,9 +136,10 @@ fun BarResult(title: String, type: String, percent: Float, onClick: () -> Unit) 
                         containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     ),
-                    onClick = { onClick }) {
+                    onClick = onClick
+                ) {
                     Text(
-                        text = "Test again",
+                        text = stringResource(id = R.string.test_again),
                         style = MaterialTheme.typography.bodySmall,
                     )
                 }

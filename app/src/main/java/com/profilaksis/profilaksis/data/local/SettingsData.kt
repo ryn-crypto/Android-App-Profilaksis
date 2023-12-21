@@ -10,32 +10,32 @@ import com.profilaksis.profilaksis.data.model.SettingsItem
 object SettingsData {
     val settings = listOf(
         SettingsItem(
-            title = "Account Settings",
+            title = R.string.account,
             icon = R.drawable.profile_idle,
             tag = "account"
         ),
         SettingsItem(
-            title = "Display",
+            title = R.string.mode,
             icon = R.drawable.mode,
             tag = "display"
         ),
         SettingsItem(
-            title = "Help & Support",
+            title = R.string.support,
             icon = R.drawable.information,
             tag = "help"
         ),
         SettingsItem(
-            title = "Terms & Conditions",
+            title = R.string.terms,
             icon = R.drawable.terms,
             tag = "terms"
         ),
         SettingsItem(
-            title = "Privacy Policy",
+            title = R.string.privacy,
             icon = R.drawable.secure,
             tag = "privacy"
         ),
         SettingsItem(
-            title = "Logout",
+            title = R.string.logout,
             icon = R.drawable.logout,
             tag = "logout"
         ),

@@ -22,9 +22,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.profilaksis.profilaksis.R
 import com.profilaksis.profilaksis.data.local.SettingsData
 import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.di.Injection
@@ -32,6 +34,7 @@ import com.profilaksis.profilaksis.ui.components.BarResult
 import com.profilaksis.profilaksis.ui.components.Greeting
 import com.profilaksis.profilaksis.ui.components.SettingsCard
 import com.profilaksis.profilaksis.ui.screen.ViewModelFactory
+import com.profilaksis.profilaksis.utils.formatDate
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,7 +60,7 @@ fun ProfileScreen(
                 color = MaterialTheme.colorScheme.secondary
             ) {
                 TopAppBar(
-                    title = { Text(text = "Profile") }
+                    title = { Text(text = stringResource(id = R.string.profile)) }
                 )
             }
         },
@@ -65,7 +68,7 @@ fun ProfileScreen(
             ProfileContent(
                 modifier = Modifier.fillMaxSize(),
                 onCLick = onCLick,
-                greeting = greeting,
+                greeting = stringResource(id = greeting),
                 userData = userData,
                 uiState = uiState
             )
@@ -108,7 +111,7 @@ fun ProfileContent(
                 Spacer(modifier = Modifier.height(10.dp))
                 if (lasHistory?.id != null) {
                     BarResult(
-                        title = "formatDate(lasHistory.createdAt),",
+                        title = formatDate(lasHistory.createdAt!!),
                         type = lasHistory.kategoriPenyakit.toString(),
                         percent = lasHistory.predictionResult!!,
                         onClick = { Unit }
@@ -132,7 +135,7 @@ fun ProfileContent(
                 SettingsCard(
                     modifier = Modifier.padding(vertical = 5.dp),
                     icon = setting.icon,
-                    title = setting.title,
+                    title = stringResource(id = setting.title),
                     onClick =
                         if (setting.tag == "logout") {
                             onCLick

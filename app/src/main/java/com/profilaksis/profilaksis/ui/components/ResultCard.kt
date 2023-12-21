@@ -55,13 +55,14 @@ fun ResultCard(
                 .padding(start = 16.dp, top = 16.dp, bottom = 10.dp),
         )
         PercentageCircle(
+            Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(vertical = 5.dp),
             percentage,
             true,
             24,
             150,
-            Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(vertical = 5.dp)
+
         )
         if (userName != null && description != null) {
             Text(
@@ -110,7 +111,7 @@ fun ResultCard(
                     Text(
                         fontSize = MaterialTheme.typography.bodySmall.fontSize,
                         color = MaterialTheme.colorScheme.primary,
-                        text = "Test Again"
+                        text = "Test Lagi"
                     )
                 }
             }
@@ -131,7 +132,7 @@ fun ResultCard(
                     Text(
                         modifier = Modifier
                             .weight(3f),
-                        text = "Consultation",
+                        text = "Konsultasi",
                         style = MaterialTheme.typography.bodySmall
                     )
                     Icon(

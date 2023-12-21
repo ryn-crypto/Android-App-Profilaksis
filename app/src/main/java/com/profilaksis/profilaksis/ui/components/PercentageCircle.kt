@@ -15,17 +15,19 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.profilaksis.profilaksis.R
 
 @Composable
 fun PercentageCircle(
+    modifier: Modifier = Modifier,
     percentage: Float,
     withPercentage: Boolean,
     sizeText: Int = 24,
     canvasSize: Int = 150,
-    modifier: Modifier = Modifier
 ) {
 
     val color = when {
@@ -34,9 +36,9 @@ fun PercentageCircle(
         else -> Color.Green
     }
     val status = when {
-        percentage >= 90 -> "Danger"
-        percentage >= 60 -> "UnHealthy"
-        else -> "Healthy"
+        percentage >= 90 -> R.string.danger
+        percentage >= 60 -> R.string.unheathy
+        else -> R.string.healthy
     }
     Box(
         modifier = modifier,
@@ -71,7 +73,7 @@ fun PercentageCircle(
                 )
             }
             Text(
-                text = status,
+                text = stringResource(id = status),
                 style = MaterialTheme.typography.bodySmall,
                 fontSize = sizeText.sp
             )

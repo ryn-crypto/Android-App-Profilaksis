@@ -1,7 +1,6 @@
 package com.profilaksis.profilaksis.ui.screen.diabetes
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -124,7 +123,7 @@ fun DiabetesScreen(
                             modifier = Modifier.padding(end = 10.dp)
                         )
                     }
-                    Text(text = "Diabetes Check")
+                    Text(text = "Cek Resiko Diabetes")
                 }
             }, modifier = Modifier.background(MaterialTheme.colorScheme.primary)
         )
@@ -141,16 +140,16 @@ fun DiabetesScreen(
                     .fillMaxWidth()
                     .wrapContentWidth(Alignment.CenterHorizontally),
                 style = MaterialTheme.typography.titleMedium,
-                text = " Please fill the form below",
+                text = "Silahkan isi data dibawah ini",
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.padding(10.dp))
             AgeTextField(ageStatus,
-                "Age",
-                rightLabel = "year",
+                "Umur",
+                rightLabel = "tahun",
                 onValueChange = { ageStatus.value = it })
             Spacer(modifier = Modifier.padding(5.dp))
-            IntTextField(height, "Height", rightLabel = "Cm", onValueChange = {
+            IntTextField(height, "Tinggi Badan", rightLabel = "Cm", onValueChange = {
                 if (it == "") {
                     height.intValue = 0
                 } else {
@@ -158,7 +157,7 @@ fun DiabetesScreen(
                 }
             })
             Spacer(modifier = Modifier.padding(5.dp))
-            IntTextField(weight, "Weight", rightLabel = "Kg", onValueChange = {
+            IntTextField(weight, "Berat Badan", rightLabel = "Kg", onValueChange = {
                 if (it == "") {
                     weight.intValue = 0
                 } else {
@@ -174,7 +173,7 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Gender", modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    text = "Jenis Kelamin", modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                 )
                 CustomRadioButton(gender, Modifier.padding(1.dp))
             }
@@ -187,7 +186,7 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Blood Pressure",
+                    text = "Tekanan Darah",
                     modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                 )
                 CustomRadioButton(blood, Modifier.padding(1.dp))
@@ -201,7 +200,7 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Cholesterol History",
+                    text = "Apakah Anda Memiliki Riwayat Diabetes?",
                     modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                 )
                 CustomRadioButton(cholesterol, Modifier.padding(1.dp))
@@ -215,7 +214,7 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Stroke History",
+                    text = "Apakah Anda Memiliki Riwayat Stroke?",
                     modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                 )
                 CustomRadioButton(stroke, Modifier.padding(1.dp))
@@ -229,7 +228,7 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Heart Attack History",
+                    text = "Apakah Anda Memiliki Riwayat Penyakit Jantung?",
                     modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                 )
                 CustomRadioButton(heart, Modifier.padding(0.dp))
@@ -243,7 +242,8 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Smoking", modifier = Modifier.padding(top = 10.dp, start = 10.dp)
+                    text = "Apakah anda Merokok ?",
+                    modifier = Modifier.padding(top = 10.dp, start = 10.dp)
                 )
                 CustomRadioButton(smoking, Modifier.padding(1.dp))
             }
@@ -256,7 +256,8 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Alcohol", modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+                    text = "Apakah Anda Mengkonsumsi Alkohol?",
+                    modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                 )
                 CustomRadioButton(alcohol, Modifier.padding(1.dp))
             }
@@ -269,7 +270,7 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Workout Regularly",
+                    text = "Apakah Anda Sering Berolahraga?",
                     modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                 )
                 CustomRadioButton(exercise, Modifier.padding(1.dp))
@@ -283,7 +284,7 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Consume Fruit Regularly",
+                    text = "CApakah Anda Mengkonsumsi Buah Secara Rutin?",
                     modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                 )
                 CustomRadioButton(fruit, Modifier.padding(1.dp))
@@ -297,7 +298,7 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Consume Vegetable Regularly",
+                    text = "Apakah Anda Mengkonsumsi Sayur Secara Rutin?",
                     modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                 )
                 CustomRadioButton(vegetable, Modifier.padding(1.dp))
@@ -311,7 +312,7 @@ fun DiabetesScreen(
                 elevation = CardDefaults.cardElevation(0.2.dp),
             ) {
                 Text(
-                    text = "Difficult to Walk",
+                    text = "Apakah Anda Kesilitan untuk Berjalan?",
                     modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                 )
                 CustomRadioButton(walk, Modifier.padding(1.dp))
@@ -327,7 +328,6 @@ fun DiabetesScreen(
                     modifier = Modifier
                         .padding(10.dp)
                         .fillMaxWidth(0.7f), onClick = {
-                        Log.e("test123", "button Clicked")
                         viewModel.sendData(
                             PredictRequestBody(
                                 kelamin = genderStatus.ordinal,
@@ -348,7 +348,7 @@ fun DiabetesScreen(
                         )
                     }, enabled = ageStatus.value.isNotEmpty() && bmi != 0
                 ) {
-                    Text(text = "Submit")
+                    Text(text = "Cek Resiko Diabetes")
                 }
             }
             LaunchedEffect(uiState) {
@@ -432,7 +432,8 @@ fun IntTextField(
 @Preview(showBackground = true)
 @Composable
 fun DiabetesPreview() {
-    DiabetesScreen(clickBack = {},
+    DiabetesScreen(
+        clickBack = {},
         snackbarHostState = SnackbarHostState(),
         clickSubmit = {},
         token = UserLogin(0, "", "", "", "", "")

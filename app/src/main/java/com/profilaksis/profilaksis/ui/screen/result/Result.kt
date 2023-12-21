@@ -1,7 +1,6 @@
 package com.profilaksis.profilaksis.ui.screen.result
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -27,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.profilaksis.profilaksis.data.model.ResponseArticleItem
 import com.profilaksis.profilaksis.data.model.ResultData
+import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.di.Injection
 import com.profilaksis.profilaksis.ui.components.ArticleCard
 import com.profilaksis.profilaksis.ui.components.ResultCard
@@ -45,8 +45,9 @@ fun ResultScreen(
     parameter: ResultData,
     onClick: () -> Unit = {},
     back: (String) -> Unit = {},
+    username: UserLogin,
 ) {
-    val backButton = {back(backScreen)}
+    val backButton = { back(backScreen) }
     BackHandler(onBack = backButton)
 
     val uiState by viewModel.uiState.collectAsState()
@@ -59,7 +60,7 @@ fun ResultScreen(
                         modifier = Modifier.padding(5.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = "Result")
+                        Text(text = "Hasil Prediksi", style = MaterialTheme.typography.titleMedium)
                     }
                 },
                 modifier = Modifier.background(MaterialTheme.colorScheme.primary)
@@ -77,8 +78,8 @@ fun ResultScreen(
                             .fillMaxWidth()
                             .padding(vertical = 5.dp, horizontal = 20.dp),
                         percentage = it1,
-                        date = "formatDate(parameter.date!!)",
-                        userName = "parameter.userName",
+                        date = formatDate(Date()),
+                        userName = username.username,
                         description = parameter.keterangan,
                         onclick = onClick,
                         back = { back(backScreen) }
@@ -128,14 +129,13 @@ fun Skeleton(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Article",
+            text = "Artikel yang mungkin bisa membantu kamu",
             style = MaterialTheme.typography.titleMedium
         )
         LazyColumn(content = {
             items(3) {
                 ArticleCard(
                     modifier = Modifier
-                        .fillMaxWidth()
                         .padding(5.dp),
                     url = "",
                     title = "",
@@ -158,7 +158,7 @@ fun Article(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Article",
+            text = "Artikel yang mungkin bisa membantu kamu",
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.padding(10.dp))
@@ -166,11 +166,10 @@ fun Article(
             items(article.size) { index ->
                 ArticleCard(
                     modifier = Modifier
-                        .fillMaxWidth()
                         .padding(5.dp),
                     url = article[index].imageUrl!!,
                     title = article[index].title!!,
-                    author = article[index].tags!!,
+                    author = article[index].author!!,
                     onClick = onClick
                 )
             }
@@ -188,6 +187,7 @@ fun ResultPreview() {
             90f,
             Date(),
         ),
-        backScreen = "heart"
+        backScreen = "heart",
+        username = UserLogin(1, "", "", "", "", "")
     )
 }

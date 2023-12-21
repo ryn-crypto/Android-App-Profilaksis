@@ -124,7 +124,7 @@ fun HeartScreen(
                                 modifier = Modifier.padding(end = 10.dp)
                             )
                         }
-                        Text(text = "Heart Check")
+                        Text(text = "Cek Resiko Jantung")
                     }
                 },
                 modifier = Modifier.background(MaterialTheme.colorScheme.primary)
@@ -143,19 +143,19 @@ fun HeartScreen(
                         .fillMaxWidth()
                         .wrapContentWidth(Alignment.CenterHorizontally),
                     style = MaterialTheme.typography.titleMedium,
-                    text = " Please fill the form below",
+                    text = "Silahkan isi data dibawah ini",
                     textAlign = TextAlign.Center,
                 )
                 Spacer(modifier = Modifier.padding(10.dp))
                 AgeTextField(
                     ageStatus,
-                    "Age",
-                    rightLabel = "year",
+                    "Umur",
+                    rightLabel = "tahun",
                     onValueChange = { ageStatus.value = it })
                 Spacer(modifier = Modifier.padding(5.dp))
                 IntTextField(
                     height,
-                    "Height",
+                    "Tinggi",
                     rightLabel = "Cm",
                     onValueChange = {
                         if (it == "") {
@@ -167,7 +167,7 @@ fun HeartScreen(
                 Spacer(modifier = Modifier.padding(5.dp))
                 IntTextField(
                     weight,
-                    "Weight",
+                    "Berat",
                     rightLabel = "Kg",
                     onValueChange = {
                         if (it == "") {
@@ -187,7 +187,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Gender",
+                        text = "Jenis Kelamin",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(gender, Modifier.padding(1.dp))
@@ -201,7 +201,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Blood Pressure",
+                        text = "Tekanan Darah",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(blood, Modifier.padding(1.dp))
@@ -215,7 +215,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Cholesterol History",
+                        text = "Riwayat Kolesterol",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(cholesterol, Modifier.padding(1.dp))
@@ -229,7 +229,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Stroke History",
+                        text = "Riwayat Stroke",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(stroke, Modifier.padding(1.dp))
@@ -243,7 +243,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Diabetes History",
+                        text = "Riwayat Diabetes",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(diabetes, Modifier.padding(0.dp))
@@ -257,7 +257,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Smoking",
+                        text = "Apakah Anda Merokok?",
                         modifier = Modifier.padding(top = 10.dp, start = 10.dp)
                     )
                     CustomRadioButton(smoking, Modifier.padding(1.dp))
@@ -271,7 +271,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Alcohol",
+                        text = "Apakah Anda Mengkonsumsi Alkohol?",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(alcohol, Modifier.padding(1.dp))
@@ -285,7 +285,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Workout Regularly",
+                        text = "Apakah Anda Sering Berolahraga?",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(exercise, Modifier.padding(1.dp))
@@ -299,7 +299,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Consume Fruit Regularly",
+                        text = "Apakah Anda Mengkonsumsi Buah Secara Rutin?",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(fruit, Modifier.padding(1.dp))
@@ -313,7 +313,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Consume Vegetable Regularly",
+                        text = "Apakah Anda Mengkonsumsi Sayur Secara Rutin?",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(vegetable, Modifier.padding(1.dp))
@@ -327,7 +327,7 @@ fun HeartScreen(
                     elevation = CardDefaults.cardElevation(0.2.dp),
                 ) {
                     Text(
-                        text = "Difficult to Walk",
+                        text = "Apakah Anda Kesilitan untuk Berjalan?",
                         modifier = Modifier.padding(top = 10.dp, start = 20.dp)
                     )
                     CustomRadioButton(walk, Modifier.padding(1.dp))
@@ -366,7 +366,7 @@ fun HeartScreen(
                         },
                         enabled = ageStatus.value.isNotEmpty() && bmi != 0
                     ) {
-                        Text(text = "Submit")
+                        Text(text = "Cek Resiko Jantung")
                     }
                 }
                 LaunchedEffect(uiState) {

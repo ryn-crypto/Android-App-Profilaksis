@@ -1,14 +1,17 @@
 package com.profilaksis.profilaksis.ui.screen.authorization.register
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Email
@@ -23,8 +26,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -59,11 +65,27 @@ fun RegisterPage(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 20.dp),
+            .padding(horizontal = 35.dp),
         verticalArrangement = Arrangement.Center
     ) {
+        Box(
+            modifier = Modifier
+                .wrapContentSize()
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            Image(
+                modifier = Modifier
+                    .height(180.dp)
+                    .width(180.dp)
+                    .padding(bottom = 16.dp),
+                painter = painterResource(R.drawable.image_logo),
+                contentDescription = "Logo",
+            )
+        }
         CustomInput(
-            placeholder = "Email",
+            placeholder = stringResource(id = R.string.email),
             leftIcon = Icons.Default.Email,
             isRightIconEnabled = false,
             visibleIcon = false,
@@ -72,7 +94,7 @@ fun RegisterPage(
         )
         Spacer(modifier = Modifier.height(16.dp))
         CustomInput(
-            placeholder = "Username",
+            placeholder = stringResource(id = R.string.username),
             leftIcon = Icons.Default.AccountBox,
             isRightIconEnabled = false,
             visibleIcon = false,
@@ -82,10 +104,10 @@ fun RegisterPage(
         Spacer(modifier = Modifier.height(16.dp))
         CustomInput(
             modifier = Modifier.fillMaxWidth(),
-            placeholder = "Password",
+            placeholder = stringResource(id = R.string.password),
             leftIcon = Icons.Default.Lock,
-            rightIcon = ImageVector.vectorResource(R.drawable.visible),
-            rightIconFalse = ImageVector.vectorResource(R.drawable.invisible),
+            rightIcon = ImageVector.vectorResource(R.drawable.invisible),
+            rightIconFalse = ImageVector.vectorResource(R.drawable.visible),
             isRightIconEnabled = true,
             onRightIconClick = { visible = !visible },
             visibleIcon = visible,
@@ -94,7 +116,7 @@ fun RegisterPage(
         Spacer(modifier = Modifier.height(16.dp))
         CustomInput(
             modifier = Modifier.fillMaxWidth(),
-            placeholder = "Confirm Password",
+            placeholder = stringResource(id = R.string.confirm_password),
             leftIcon = Icons.Default.Lock,
             isRightIconEnabled = false,
             visibleIcon = visible,
@@ -116,25 +138,22 @@ fun RegisterPage(
             enabled = isValidEmail(email),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Register")
+            Text(text = "Daftar")
         }
 
         LaunchedEffect(uiState) {
             when (val currentState = uiState) {
                 is RegisterUiState.Loading -> {
                     isLoading = true
-                    Log.e("Register", "loading")
                 }
 
                 is RegisterUiState.Success -> {
                     isLoading = false
-                    Log.e("Register", "Success with data ${currentState.result}")
                     onRegisterSuccess()
                 }
 
                 is RegisterUiState.Error -> {
                     isLoading = false
-                    Log.e("Register", "false with message ${currentState.errorMessage}")
                     snackbarHostState.showSnackbar(currentState.errorMessage)
                 }
 

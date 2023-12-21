@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -86,7 +87,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
         CustomInput(
             modifier = Modifier.fillMaxWidth(),
-            placeholder = "User Name",
+            placeholder = stringResource(id = R.string.username),
             leftIcon = Icons.Default.AccountBox,
             isRightIconEnabled = false,
             visibleIcon = false,
@@ -95,7 +96,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
         CustomInput(
             modifier = Modifier.fillMaxWidth(),
-            placeholder = "Password",
+            placeholder = stringResource(id = R.string.password),
             leftIcon = Icons.Default.Lock,
             rightIcon = ImageVector.vectorResource(R.drawable.visible),
             rightIconFalse = ImageVector.vectorResource(R.drawable.invisible),
@@ -119,17 +120,17 @@ fun LoginScreen(
             enabled = userName.isNotEmpty() && password.isNotEmpty(),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Login")
+            Text(text = stringResource(id = R.string.login))
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Don't have an account?")
+            Text(text = stringResource(id = R.string.dont_have_account))
             Spacer(modifier = Modifier.width(4.dp))
             Text(
-                text = "Register",
+                text = stringResource(id = R.string.register),
                 color = Color.Blue,
                 modifier = Modifier
                     .padding(start = 4.dp)

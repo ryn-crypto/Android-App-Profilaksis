@@ -1,29 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Profilaksis</string>
-    <string name="pref_key_dark" translatable="false">key_dark_mode</string>
-    <string name="pref_dark_auto" translatable="false">auto</string>
-    <string name="login" translatable="false">Login</string>
-<!--    <string name="article_image">image article</string>-->
-<!--    <string name="user_image">image user</string>-->
-<!--    <string name="menu_home">Home</string>-->
-<!--    <string name="history">History</string>-->
-<!--    <string name="menu_profile">Profile</string>-->
-<!--    <string name="email">Email</string>-->
-<!--    <string name="username">Username</string>-->
-<!--    <string name="password">Password</string>-->
-<!--    <string name="confirm_password">Confirm Password</string>-->
-<!--    <string name="dont_have_account">Don\'t_have_account?</string>-->
-<!--    <string name="register">Register</string>-->
-<!--    <string name="good_morning">Good Morning</string>-->
-<!--    <string name="good_afternoon">Good Afternoon</string>-->
-<!--    <string name="good_evening">Good evening</string>-->
-<!--    <string name="good_night">Good night</string>-->
-<!--    <string name="accurate">Accurate</string>-->
-<!--    <string name="everywhere">Everywhere</string>-->
-<!--    <string name="consultation">Consultation</string>-->
-<!--    <string name="article_for_you">Article For You</string>-->
-
-
     <string name="article_image">gambar article</string>
     <string name="user_image">gambar Pengguna</string>
     <string name="menu_home">Beranda</string>
@@ -44,7 +20,7 @@
     <string name="consultation">Konsultasi</string>
     <string name="article_for_you">Artikel Untuk Anda</string>
     <string name="danger">Bahaya</string>
-    <string name="unheathy">Rata-Rata</string>
+    <string name="unheathy">Kurang Sehat</string>
     <string name="healthy">Sehat</string>
     <string name="risks">Resiko</string>
     <string name="profile">Profile</string>

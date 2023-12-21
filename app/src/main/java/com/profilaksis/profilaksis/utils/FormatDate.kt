@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 fun formatDate(date: Date): String {
-    val format = SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault())
+    val localeIndonesia = Locale("id", "ID")
+    val format = SimpleDateFormat("dd MMMM yyyy", localeIndonesia)
     return format.format(date)
 }

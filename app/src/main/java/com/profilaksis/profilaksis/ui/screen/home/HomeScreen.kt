@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -97,7 +98,7 @@ fun HomeScreen(
                     Greeting(
                         name = userData.username,
                         url = userData.avatar,
-                        greeting = Greeting.getGreeting(),
+                        greeting = stringResource(id = Greeting.getGreeting()),
                         icon = true,
                         modifier = Modifier.size(60.dp)
                     )
@@ -141,7 +142,7 @@ fun HomeScreen(
                                 modifier = Modifier.size(30.dp)
                             )
                             Text(
-                                text = "Accurate",
+                                text = stringResource(id = R.string.accurate),
                                 fontSize = 10.sp,
                                 style = MaterialTheme.typography.bodySmall,
                                 color = Color.Gray,
@@ -160,7 +161,7 @@ fun HomeScreen(
                                 modifier = Modifier.size(30.dp)
                             )
                             Text(
-                                text = "Everywhere",
+                                text = stringResource(id = R.string.everywhere),
                                 fontSize = 10.sp,
                                 style = MaterialTheme.typography.bodySmall,
                                 color = Color.Gray,
@@ -174,12 +175,12 @@ fun HomeScreen(
                             verticalArrangement = Arrangement.Center
                         ) {
                             Image(
-                                painterResource(R.drawable.icon3),
+                                painterResource(R.drawable.icon4),
                                 contentDescription = "",
                                 modifier = Modifier.size(30.dp)
                             )
                             Text(
-                                text = "Consult",
+                                text = stringResource(id = R.string.consultation),
                                 fontSize = 10.sp,
                                 style = MaterialTheme.typography.bodySmall,
                                 color = Color.Gray,
@@ -192,7 +193,7 @@ fun HomeScreen(
         }
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "Articles may interest you",
+            text = stringResource(id = R.string.article_for_you),
             style = MaterialTheme.typography.titleSmall,
             modifier = Modifier.padding(10.dp),
         )
@@ -266,7 +267,7 @@ fun HomeScreen(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
     HomeScreen(

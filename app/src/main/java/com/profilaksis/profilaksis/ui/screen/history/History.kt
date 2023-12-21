@@ -28,13 +28,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.profilaksis.profilaksis.R
 import com.profilaksis.profilaksis.data.model.ResultsItem
 import com.profilaksis.profilaksis.data.model.UserLogin
 import com.profilaksis.profilaksis.di.Injection
 import com.profilaksis.profilaksis.ui.components.HistoryCard
+import com.profilaksis.profilaksis.ui.components.Loader
 import com.profilaksis.profilaksis.ui.screen.ViewModelFactory
 import com.profilaksis.profilaksis.utils.formatDate
 
@@ -62,13 +65,15 @@ fun HistoryScreen(
         modifier = modifier.padding(bottom = 50.dp),
         topBar = {
             TopAppBar(
-                title = { Text(text = "History") },
-                modifier = Modifier.background(MaterialTheme.colorScheme.primary).shadow(1.dp),
+                title = { Text(text = stringResource(R.string.history)) },
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.primary)
+                    .shadow(1.dp),
             )
         },
         content = {
             if (isLoading) {
-                Text(text = "Loading...")
+                Loader()
             } else {
                 HistoryContent(modifier = modifier, dataHistory = dataHistory)
             }
@@ -111,7 +116,7 @@ fun HistoryContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LazyColumn(
-            contentPadding = PaddingValues(bottom = 80.dp),
+            contentPadding = PaddingValues(bottom = 50.dp),
             content = {
             items(dataHistory.size) { index ->
                 HistoryCard(

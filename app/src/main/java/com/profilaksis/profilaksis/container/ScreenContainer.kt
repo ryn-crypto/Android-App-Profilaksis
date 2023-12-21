@@ -104,7 +104,8 @@ fun ScreenContainer(id: String, clickBack: () -> Unit, userData: (UserLogin) -> 
                     back = {
                         currentId = it
                         parameter = ResultData(null ,null, null)
-                    }
+                    },
+                    username = token!!
                 )
             }
 
